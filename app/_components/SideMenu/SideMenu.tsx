@@ -7,7 +7,7 @@ type Props = {}
 
 const SideMenu = (props: Props) => {
   return (
-    <div className='flex flex-col bg-white p-6 border-r border-gray-200 transition-all duration-300 w-64 justify-between sticky'>
+    <div className='flex flex-col bg-white p-6 border-r border-gray-200 transition-all duration-300 w-64 shrink-0 justify-between sticky'>
       <div className='flex flex-col gap-6'>
         <a 
           href={'/'} 
