@@ -1,5 +1,5 @@
 import { useQuery } from "@tanstack/react-query";
-import { DashboardResponse } from "./types";
+import { DashboardResponse } from "../types/data";
 
 export const getChatbotResponse = async (question: string): Promise<string> => {
     const response = await fetch('/api/chat', {
@@ -32,37 +32,30 @@ const buildInsightsPrompt = (dashboard: DashboardResponse) => {
 
     return `${INSIGHTS_PROMPT}
 
-Summary:
-- Filtered order count: ${dashboard.filteredOrderCount}
-- Current revenue: ${dashboard.kpis.current.totalRevenue.toFixed(2)}
-- Current orders: ${dashboard.kpis.current.totalOrders}
-- Average order total: ${dashboard.kpis.current.averageOrderTotal.toFixed(2)}
-- Returning customers: ${dashboard.kpis.current.returningCustomersPct.toFixed(1)}%
-- Revenue change vs previous period: ${dashboard.kpis.changes.revenue.toFixed(1)}%
-- Orders change vs previous period: ${dashboard.kpis.changes.orders.toFixed(1)}%
-- Average order change vs previous period: ${dashboard.kpis.changes.averageOrderTotal.toFixed(1)}%
-- Returning customer change vs previous period: ${dashboard.kpis.changes.returningCustomersPct.toFixed(1)}%
+    Summary:
+    - Filtered order count: ${dashboard.filteredOrderCount}
+    - Current revenue: ${dashboard.kpis.current.totalRevenue.toFixed(2)}
+    - Current orders: ${dashboard.kpis.current.totalOrders}
+    - Average order total: ${dashboard.kpis.current.averageOrderTotal.toFixed(2)}
+    - Returning customers: ${dashboard.kpis.current.returningCustomersPct.toFixed(1)}%
+    - Revenue change vs previous period: ${dashboard.kpis.changes.revenue.toFixed(1)}%
+    - Orders change vs previous period: ${dashboard.kpis.changes.orders.toFixed(1)}%
+    - Average order change vs previous period: ${dashboard.kpis.changes.averageOrderTotal.toFixed(1)}%
+    - Returning customer change vs previous period: ${dashboard.kpis.changes.returningCustomersPct.toFixed(1)}%
 
-Revenue trend:
-${JSON.stringify(recentTrend)}
+    Revenue trend:
+    ${JSON.stringify(recentTrend)}
 
-Category breakdown:
-${JSON.stringify(topCategories)}
+    Category breakdown:
+    ${JSON.stringify(topCategories)}
 
-Region breakdown:
-${JSON.stringify(topRegions)}`;
+    Region breakdown:
+    ${JSON.stringify(topRegions)}`;
 }
 
 export const useFetchInsightsQuery = (dashboard: DashboardResponse | undefined) => {
     const { data: insights, isFetching, error, refetch } = useQuery({
-        queryKey: ['insights', dashboard ? JSON.stringify({
-            filteredOrderCount: dashboard.filteredOrderCount,
-            current: dashboard.kpis.current,
-            changes: dashboard.kpis.changes,
-            revenueTrend: dashboard.revenueTrend.slice(-7),
-            categoryBreakdown: dashboard.categoryBreakdown.slice(0, 3),
-            regionBreakdown: dashboard.regionBreakdown.slice(0, 3),
-        }) : 'empty'],
+        queryKey: ['insights', dashboard],
         queryFn: () => getChatbotResponse(buildInsightsPrompt(dashboard as DashboardResponse)),
         enabled: false,
         retry: false,

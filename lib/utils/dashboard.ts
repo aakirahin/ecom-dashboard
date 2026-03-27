@@ -9,6 +9,7 @@ export const initOrdersState = (startDate: string, endDate: string): TableState<
     filters: { startDate, endDate }
 })
 
+// CALCULATE KPI
 const calculateMetrics = (orders: Order[]): DashboardMetricSummary => {
     const totalOrders = orders.length;
     const totalRevenue = orders.reduce((sum, order) => sum + order.revenue, 0);
@@ -31,6 +32,8 @@ const calculateMetrics = (orders: Order[]): DashboardMetricSummary => {
     };
 };
 
+
+// CALCULATE KPI % CHANGE OVER PERIOD
 const calculateChangePct = (current: number, previous: number) => {
     if (previous === 0) return current === 0 ? 0 : 100;
     return ((current - previous) / previous) * 100;
@@ -47,6 +50,8 @@ export const buildRevenueTrend = (orders: Order[]): RevenueTrendPoint[] => {
         .sort((a, b) => a.date.localeCompare(b.date));
 };
 
+
+// BUILD CATEGORY AND REGION BREAKDOWNS # TODO: MAKE REUSABLE
 export const buildBreakdown = (orders: Order[], key: "product_category" | "region"): BreakdownDatum[] => {
     const grouped = orders.reduce<Record<string, number>>((acc, order) => {
         const groupKey = order[key];
@@ -59,6 +64,7 @@ export const buildBreakdown = (orders: Order[], key: "product_category" | "regio
         .sort((a, b) => b.value - a.value);
 };
 
+// DERIVED DATA FOR DASHBOARD
 export const buildDashboardResponse = (currentOrders: Order[], previousOrders: Order[]): DashboardResponse => {
     const current = calculateMetrics(currentOrders);
     const previous = calculateMetrics(previousOrders);
