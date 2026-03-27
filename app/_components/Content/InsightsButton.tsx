@@ -2,18 +2,22 @@ import { Sparkles } from 'lucide-react'
 import React from 'react'
 
 type Props = {
-    onFetch: () => void
+    handleInsightsToggle: () => void
     isLoading: boolean
     label: string
 }
 
-const InsightsButton = ({ onFetch, isLoading, label }: Props) => {
+const InsightsButton = ({ 
+    handleInsightsToggle, 
+    isLoading, 
+    label 
+}: Props) => {
     return (
         <button
             className='group relative overflow-hidden flex gap-1 items-center bg-white border border-[#A383FF] rounded-lg py-0.5 px-2 shadow-md shadow-purple-100 text-[13px] hover:border-[#C9B2FD] transition-all duration-300 cursor-pointer disabled:opacity-60 disabled:cursor-not-allowed'
             aria-label="View key insights"
             disabled={isLoading}
-            onClick={onFetch}
+            onClick={handleInsightsToggle}
         >
             <span
                 className='pointer-events-none absolute inset-0 opacity-0 transition-opacity duration-300 group-hover:opacity-100'

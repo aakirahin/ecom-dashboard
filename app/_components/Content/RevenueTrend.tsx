@@ -24,7 +24,7 @@ const RevenueTrend = ({
   const { insights, isFetching, error, refetch } = useFetchInsightsQuery(dashboard);
 
   const handleInsightsToggle = async () => {
-    setShowInsights(!showInsights)
+    setShowInsights(prev => !prev)
     if (!insights && dashboard) await refetch()
   }
 
@@ -33,7 +33,7 @@ const RevenueTrend = ({
       <div className='flex justify-between'>
         <span className='text-[16px] text-[#626366] font-medium'>Revenue Trend</span>
         <InsightsButton
-          onFetch={handleInsightsToggle}
+          handleInsightsToggle={handleInsightsToggle}
           isLoading={isFetching}
           label={showInsights ? 'Hide insights' : 'View insights'}
         />
