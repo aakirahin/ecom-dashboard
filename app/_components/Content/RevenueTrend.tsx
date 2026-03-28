@@ -6,7 +6,8 @@ import InsightsButton from './InsightsButton'
 import { useFetchInsightsQuery } from '@/lib/queries/chat'
 import { BotMessageSquare } from 'lucide-react'
 import ChartLoading from '../SkeletonLoading/ChartLoading'
-import { DashboardResponse, RevenueTrendPoint } from '@/lib/types/data'
+import { DashboardResponse, RevenueTrendPoint } from '@/lib/types/dashboard'
+import { borderClass } from '@/lib/styles/tailwindClasses'
 
 type Props = {
   data: RevenueTrendPoint[]
@@ -30,7 +31,7 @@ const RevenueTrend = ({
   }
 
   return (
-    <div className='bg-white border border-gray-200 rounded-lg w-2/3 p-4 flex flex-col gap-4'>
+    <div className={`bg-white ${borderClass} rounded-lg w-2/3 p-4 flex flex-col gap-4`}>
       <div className='flex justify-between'>
         <span className='text-[16px] text-[#626366] font-medium'>Revenue Trend</span>
         <InsightsButton

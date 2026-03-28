@@ -1,5 +1,5 @@
 import { TableState } from "../reducer/tableReducer"
-import { DashboardQueryState } from "../types/data"
+import { DashboardQueryState } from "../types/dashboard"
 import { Order } from "../types/orders"
 
 export const buildOrderQueryParams = (state: TableState<Order>) => {

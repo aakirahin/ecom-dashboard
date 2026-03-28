@@ -7,6 +7,7 @@ type Props = {
     label: string
 }
 
+// Most of the code in here is just styling
 const InsightsButton = ({ 
     handleInsightsToggle, 
     isLoading, 

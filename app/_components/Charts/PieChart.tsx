@@ -1,5 +1,3 @@
-"use client"
-
 import React from "react";
 import {
     PieChart as Chart,
@@ -43,7 +41,7 @@ const PieChart = ({ data }: Props) => {
                 layout="horizontal"
                 verticalAlign="bottom"
                 align="center"
-                wrapperStyle={{ fontSize: "0.8em" }}
+                wrapperStyle={{ fontSize: "12px" }}
             />
             <Pie
                 data={data}

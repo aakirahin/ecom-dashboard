@@ -3,6 +3,7 @@ import TableHeader from './TableHeader';
 import TableBody from './TableBody';
 import Pagination from './Pagination';
 import Search from './Search';
+import TableLoading from '../SkeletonLoading/TableLoading';
 
 type Props<T> = {
   title: string
@@ -38,12 +39,14 @@ const DataTable = <T extends Record<string, any>>({
         <Search/>
       </div>
       {error && <p className='text-red-600'>Error loading orders.</p>}
-      {isLoading && <p className='text-sm text-gray-500'>Loading orders...</p>}
-      <table className='divide-y divide-gray-200 w-full'>
-        <TableHeader<T> columns={columns}/>
-        <TableBody<T> data={rows} columns={columns}/>
-      </table>
-      {!rows.length && !isLoading ?
+      {isLoading && <TableLoading/>}
+      {rows && !isLoading &&
+        <table className='divide-y divide-gray-200 w-full'>
+          <TableHeader<T> columns={columns}/>
+          <TableBody<T> data={rows} columns={columns}/>
+        </table>
+      }
+      {!rows && !isLoading ?
         <p className='p-2'>No orders found.</p> :
         <Pagination totalItems={total} totalPages={totalPages}/>
       }

@@ -7,21 +7,19 @@ import Breakdown from './Breakdown'
 import FilterBar from './FilterBar'
 import { startDate, endDate } from '@/lib/utils/date'
 import { useFetchDashboardQuery } from '@/lib/queries/queries'
-import { DashboardFilters, DashboardQueryState } from '@/lib/types/data'
+import { DashboardFilters, DashboardQueryState } from '@/lib/types/dashboard'
 import OrderHistory from './OrderHistory'
 
 type Props = {}
 
 const ContentLayout = (props: Props) => {
   const [dashboardFilters, setDashboardFilters] = useState<DashboardFilters>({ categories: [], regions: [] })
-
   const dashboardQueryState: DashboardQueryState = useMemo(() => ({
     startDate,
     endDate,
     categories: dashboardFilters.categories,
     regions: dashboardFilters.regions,
   }), [dashboardFilters])
-
   const { 
     data: dashboardData, 
     isLoading: isDashboardLoading, 

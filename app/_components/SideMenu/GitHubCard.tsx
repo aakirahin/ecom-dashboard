@@ -38,7 +38,7 @@ const GitHubCard = (props: Props) => {
                 width={160}
                 height={160}
                 className="absolute bottom-[-45px] right-[-0px] opacity-15 pointer-events-none select-none"
-                loading="lazy"
+                loading="eager"
             />
         </div>
     )

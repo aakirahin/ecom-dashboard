@@ -5,7 +5,7 @@ import { Order } from '@/lib/types/orders';
 import DataTable, { Column } from '../Table/DataTable';
 import { Calendar, DollarSign, Globe, Hash, ShoppingBag } from 'lucide-react';
 import { useTableState } from '@/app/_context/OrdersContextProvider';
-import { DashboardFilters } from '@/lib/types/data';
+import { DashboardFilters } from '@/lib/types/dashboard';
 import { useDebounce } from '@/lib/utils/hooks';
 import { useFetchOrdersQuery } from '@/lib/queries/queries';
 

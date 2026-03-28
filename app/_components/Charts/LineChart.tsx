@@ -17,7 +17,7 @@ const LineChart = <T,>({
 
     return (
         <Chart
-            style={{ width: '100%', height: '95%' }}
+            style={{ width: '100%', height: '100%' }}
             responsive
             data={data}
         >

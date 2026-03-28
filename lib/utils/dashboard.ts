@@ -1,4 +1,4 @@
-import { DashboardMetricSummary, DashboardResponse, BreakdownDatum, RevenueTrendPoint } from "@/lib/types/data";
+import { DashboardMetricSummary, DashboardResponse, BreakdownDatum, RevenueTrendPoint } from "@/lib/types/dashboard";
 import { Order } from "@/lib/types/orders";
 import { TableState } from "../reducer/tableReducer";
 

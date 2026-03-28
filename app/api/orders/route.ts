@@ -1,9 +1,8 @@
 import { NextResponse } from "next/server";
 import { staticData } from "@/lib/data/mockData";
-import { paginate, sortData } from "@/lib/utils/utils";
+import { filterOrders, paginate, sortData } from "@/lib/utils/utils";
 import { Order } from "@/lib/types/orders";
 import { PaginatedResponse } from "@/lib/types/data";
-import { filterOrders } from "../dashboard/route";
 
 export function GET(req: Request): NextResponse<PaginatedResponse<Order>> {
     const { orders } = staticData;

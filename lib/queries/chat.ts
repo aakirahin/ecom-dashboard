@@ -1,5 +1,5 @@
 import { useQuery } from "@tanstack/react-query";
-import { DashboardResponse } from "../types/data";
+import { DashboardResponse } from "../types/dashboard";
 
 export const getChatbotResponse = async (question: string): Promise<string> => {
     const response = await fetch('/api/chat', {

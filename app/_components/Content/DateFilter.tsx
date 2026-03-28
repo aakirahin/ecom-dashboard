@@ -1,3 +1,4 @@
+import { focusRingClass, shadowClass } from '@/lib/styles/tailwindClasses';
 import { endDate, startDate } from '@/lib/utils/date'
 import React from 'react'
 import DatePicker from "react-datepicker";
@@ -5,7 +6,7 @@ import "react-datepicker/dist/react-datepicker.css";
 
 type Props = {}
 
-const buttonStyle = 'flex gap-1 items-center font-medium bg-white border border-gray-300 py-0.5 px-2 shadow-sm shadow-gray-100 text-[13px] hover:shadow-gray-200 hover:border-gray-400 focus:outline-none focus:ring-1 focus:ring-gray-400 transition-all duration-300 cursor-pointer'
+const buttonStyle = `flex gap-1 items-center font-medium bg-white border border-gray-300 py-0.5 px-2 ${shadowClass} text-[13px] hover:shadow-gray-200 hover:border-gray-400 ${focusRingClass} focus:ring-gray-400`
 
 const DateFilter = (props: Props) => {
   return (

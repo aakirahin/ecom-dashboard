@@ -1,10 +1,11 @@
 "use client"
 
 import { useQuery } from "@tanstack/react-query"
-import { DashboardQueryState, DashboardResponse, PaginatedResponse } from "@/lib/types/data"
+import { DashboardQueryState, DashboardResponse } from "@/lib/types/dashboard"
 import { Order } from "@/lib/types/orders"
 import { TableState } from "@/lib/reducer/tableReducer"
 import { buildDashboardQueryParams, buildOrderQueryParams } from "./builders"
+import { PaginatedResponse } from "../types/data"
 
 // FETCH
 

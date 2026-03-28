@@ -1,5 +1,6 @@
 import React from 'react'
 import { useTableActions, useTableState } from '@/app/_context/OrdersContextProvider';
+import { borderClass, focusRingClass } from '@/lib/styles/tailwindClasses';
 
 type Props = {}
 
@@ -14,7 +15,7 @@ const Search = (props: Props) => {
             value={state.search}
             onChange={(e) => handleSearch(e.target.value)}
             placeholder='Search orders'
-            className='py-2 px-4 border border-gray-200 rounded-md focus:outline-none focus:ring-1 focus:ring-blue-400 focus:border-transparent duration-300 transition-all'
+            className={`py-2 px-4 rounded-md ${borderClass} ${focusRingClass}`}
         />
     )
 }

@@ -1,4 +1,5 @@
-import { DashboardFilters } from '@/lib/types/data'
+import { borderClass, shadowClass } from '@/lib/styles/tailwindClasses'
+import { DashboardFilters } from '@/lib/types/dashboard'
 import React from 'react'
 
 type Props = {
@@ -14,8 +15,6 @@ type FilterSection = {
     values: string[]
 }
 
-const subtitleClass = 'text-xs font-semibold text-[#626366] uppercase tracking-wide mb-2'
-
 const CATEGORIES = ["Electronics", "Home & Kitchen", "Fashion", "Sports", "Beauty", "Toys", "Books", "Groceries"]
 const REGIONS = ["Europe", "North America", "Asia", "South America", "Oceania", "Africa"]
 
@@ -27,7 +26,7 @@ const FilterSection = ({
     values 
 }: FilterSection) => (
     <div>
-        <p className={subtitleClass}>{section}</p>
+        <p className='text-xs font-semibold text-[#626366] uppercase tracking-wide mb-2'>{section}</p>
         <div className='flex flex-col gap-1'>
             {values.map(value => (
                 <label key={value} className='flex items-center gap-4 text-sm cursor-pointer select-none'>
@@ -50,36 +49,23 @@ const FilterDropdown = ({
 }: Props) => {
     const showAll = filters.categories.length === 0 && filters.regions.length === 0
 
-    const toggleCategory = (cat: string) => {
-        const { categories } = filters
-        let next: string[]
+    const toggleFilter = (type: keyof DashboardFilters, value: string) => {
+        const valuesArray = type === 'categories' ? CATEGORIES : REGIONS
+        const currentValues = filters[type]
+        let updatedValues: string[]
 
-        if (categories.length === 0) next = CATEGORIES.filter(c => c !== cat)
-        else if (categories.includes(cat)) next = categories.filter(c => c !== cat)
+        if (currentValues.length === 0) updatedValues = valuesArray.filter((v) => v !== value)
+        else if (currentValues.includes(value)) updatedValues = currentValues.filter((v) => v !== value)
         else {
-            next = [...categories, cat]
-            if (next.length === CATEGORIES.length) next = []
+            updatedValues = [...currentValues, value]
+            if (updatedValues.length === valuesArray.length) updatedValues = [] // If all values are selected, reset to show all
         }
 
-        setFilters({ ...filters, categories: next })
-    }
-
-    const toggleRegion = (region: string) => {
-        const { regions } = filters
-        let next: string[]
-
-        if (regions.length === 0) next = REGIONS.filter(r => r !== region)
-        else if (regions.includes(region)) next = regions.filter(r => r !== region)
-        else {
-            next = [...regions, region]
-            if (next.length === REGIONS.length) next = []
-        }
-
-        setFilters({ ...filters, regions: next })
+        setFilters({ ...filters, [type]: updatedValues })
     }
 
     return (
-        <div className='absolute right-0 top-full mt-1 w-56 bg-white border border-gray-200 rounded-lg shadow-sm shadow-gray-100 z-50 p-3 flex flex-col gap-3 max-h-[70vh] overflow-y-auto'>
+        <div className={`absolute right-0 top-full mt-1 w-56 bg-white rounded-lg z-50 p-3 flex flex-col gap-3 max-h-[70vh] overflow-y-auto ${borderClass} ${shadowClass}`}>
             <label className='flex items-center gap-2 text-sm font-medium cursor-pointer select-none'>
                 <input
                     type='checkbox'
@@ -93,14 +79,14 @@ const FilterDropdown = ({
                 type='categories'
                 section='Product Category' 
                 filters={filters} 
-                toggle={toggleCategory}
+                toggle={(value) => toggleFilter('categories', value)}
                 values={CATEGORIES}
             />
             <FilterSection
                 type='regions'
                 section='Region'
                 filters={filters}
-                toggle={toggleRegion}
+                toggle={(value) => toggleFilter('regions', value)}
                 values={REGIONS}
             />
         </div>
