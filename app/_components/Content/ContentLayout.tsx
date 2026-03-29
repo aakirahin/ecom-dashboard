@@ -1,30 +1,30 @@
 "use client"
 
-import React, { useMemo, useState } from 'react'
+import React, { useState } from 'react'
 import KPIMetrics from './KPIMetrics'
 import RevenueTrend from './RevenueTrend'
 import Breakdown from './Breakdown'
 import FilterBar from './FilterBar'
 import { startDate, endDate } from '@/lib/utils/date'
 import { useFetchDashboardQuery } from '@/lib/queries/queries'
-import { DashboardFilters, DashboardQueryState } from '@/lib/types/dashboard'
+import { DashboardQueryState } from '@/lib/types/dashboard'
 import OrderHistory from './OrderHistory'
 
 type Props = {}
 
 const ContentLayout = (props: Props) => {
-  const [dashboardFilters, setDashboardFilters] = useState<DashboardFilters>({ categories: [], regions: [] })
-  const dashboardQueryState: DashboardQueryState = useMemo(() => ({
+  const [dashboardFilters, setDashboardFilters] = useState<DashboardQueryState>({ 
     startDate,
     endDate,
-    categories: dashboardFilters.categories,
-    regions: dashboardFilters.regions,
-  }), [dashboardFilters])
+    categories: [], 
+    regions: [] 
+  })
+
   const { 
     data: dashboardData, 
     isLoading: isDashboardLoading, 
     error: dashboardError 
-  } = useFetchDashboardQuery(dashboardQueryState)
+  } = useFetchDashboardQuery(dashboardFilters)
 
   return (
     <div className='flex flex-col gap-4 m-4 mb-6 flex-1 overflow-hidden'>

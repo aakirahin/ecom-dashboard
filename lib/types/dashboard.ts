@@ -1,12 +1,9 @@
-export type DashboardFilters = {
-    categories: string[];
-    regions: string[];
-}
-
 export type DashboardQueryState = {
     startDate: string;
     endDate: string;
-} & DashboardFilters
+    categories: string[];
+    regions: string[];
+}
 
 export type DashboardMetricSummary = {
     totalRevenue: number;

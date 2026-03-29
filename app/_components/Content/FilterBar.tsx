@@ -5,15 +5,15 @@ import { Download, ListFilter, Puzzle } from 'lucide-react'
 import SmallButton from './SmallButton'
 import Link from 'next/link'
 import DateFilter from './DateFilter'
-import { DashboardFilters } from '@/lib/types/dashboard'
 import FilterDropdown from './FilterDropdown'
 import { useHandleExport } from '@/lib/utils/exportCSV'
 import { endDate, startDate } from '@/lib/utils/date'
 import { initOrdersState } from '@/lib/utils/dashboard'
+import { DashboardQueryState } from '@/lib/types/dashboard'
 
 type Props = {
-  filters: DashboardFilters
-  setFilters: (f: DashboardFilters) => void
+  filters: DashboardQueryState
+  setFilters: (f: DashboardQueryState) => void
 }
 
 const FilterBar = ({ 
@@ -52,7 +52,10 @@ const FilterBar = ({
         />
       </Link>
       <div className='flex items-center gap-2'>
-        {/* <DateFilter/> */}
+        <DateFilter
+          filters={filters}
+          setFilters={setFilters}
+        />
         <div className='relative' ref={dropdownRef}>
           <SmallButton
             icon={<ListFilter size={12} color='#7F7F7F'/>}

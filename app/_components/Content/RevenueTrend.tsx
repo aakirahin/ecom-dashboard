@@ -7,7 +7,7 @@ import { useFetchInsightsQuery } from '@/lib/queries/chat'
 import { BotMessageSquare } from 'lucide-react'
 import ChartLoading from '../SkeletonLoading/ChartLoading'
 import { DashboardResponse, RevenueTrendPoint } from '@/lib/types/dashboard'
-import { borderClass } from '@/lib/styles/tailwindClasses'
+import { cardClass, titleClass } from '@/lib/styles/tailwindClasses'
 
 type Props = {
   data: RevenueTrendPoint[]
@@ -31,9 +31,9 @@ const RevenueTrend = ({
   }
 
   return (
-    <div className={`bg-white ${borderClass} rounded-lg w-2/3 p-4 flex flex-col gap-4`}>
+    <div className={` ${cardClass} w-2/3 p-4 flex flex-col gap-4`}>
       <div className='flex justify-between'>
-        <span className='text-[16px] text-[#626366] font-medium'>Revenue Trend</span>
+        <span className={titleClass}>Revenue Trend</span>
         <InsightsButton
           handleInsightsToggle={handleInsightsToggle}
           isLoading={isFetching}

@@ -1,16 +1,16 @@
 import { borderClass, shadowClass } from '@/lib/styles/tailwindClasses'
-import { DashboardFilters } from '@/lib/types/dashboard'
+import { DashboardQueryState } from '@/lib/types/dashboard'
 import React from 'react'
 
 type Props = {
-    filters: DashboardFilters
-    setFilters: (f: DashboardFilters) => void
+    filters: DashboardQueryState
+    setFilters: (f: DashboardQueryState) => void
 }
 
 type FilterSection = {
-    type: keyof DashboardFilters
+    type: keyof DashboardQueryState
     section: string
-    filters: DashboardFilters
+    filters: DashboardQueryState
     toggle: (value: string) => void
     values: string[]
 }
@@ -49,7 +49,7 @@ const FilterDropdown = ({
 }: Props) => {
     const showAll = filters.categories.length === 0 && filters.regions.length === 0
 
-    const toggleFilter = (type: keyof DashboardFilters, value: string) => {
+    const toggleFilter = (type: keyof DashboardQueryState, value: string) => {
         const valuesArray = type === 'categories' ? CATEGORIES : REGIONS
         const currentValues = filters[type]
         let updatedValues: string[]
@@ -70,7 +70,7 @@ const FilterDropdown = ({
                 <input
                     type='checkbox'
                     checked={showAll}
-                    onChange={() => setFilters({ categories: [], regions: [] })}
+                    onChange={() => setFilters({ ...filters, categories: [], regions: [] })}
                     className='accent-blue-500'
                 />
                 Show all
