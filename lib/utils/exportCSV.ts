@@ -39,10 +39,12 @@ export const useHandleExport = (exportQueryState: TableState<Order>) => {
             pagination: { page: 1, perPage: 20000 },
         }
 
+        // GET FILTERED ORDERS
+        // TODO: MAKE REUSABLE
         const response = await fetch(`/api/orders?${buildOrderQueryParams(exportState).toString()}`)
         if (!response.ok) throw new Error('Failed to export orders.')
         
-            const payload = await response.json() as { data: Order[] }
+        const payload = await response.json() as { data: Order[] }
         exportCSV(payload.data, `orders_${new Date().toISOString()}`)
     }, [exportQueryState])
 

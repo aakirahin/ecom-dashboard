@@ -1,10 +1,8 @@
 import { NextResponse } from "next/server";
 import { staticData } from "@/lib/data/mockData";
-import { DashboardQueryState, DashboardResponse } from "@/lib/types/dashboard";
-import { Order } from "@/lib/types/orders";
+import { DashboardResponse } from "@/lib/types/dashboard";
 import { previousEndDate, previousStartDate } from "@/lib/utils/date";
-import { buildDashboardResponse } from "@/lib/utils/dashboard";
-import { filterOrders } from "@/lib/utils/utils";
+import { buildDashboardResponse, filterOrders } from "@/lib/utils/dashboard";
 
 export function GET(req: Request): NextResponse<DashboardResponse> {
     const { orders } = staticData;
