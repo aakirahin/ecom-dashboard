@@ -1,12 +1,13 @@
 "use client"
 
 import React, { useState } from 'react'
-import { cardClass } from '@/lib/styles/tailwindClasses'
+import { cardClass, titleClass } from '@/lib/styles/tailwindClasses'
 import Card from './_components/Card'
 import RevenueTrendWidget from './_components/Widgets/RevenueTrendWidget'
 import PieChartWidget from './_components/Widgets/PieChartWidget'
 import BarChartWidget from './_components/Widgets/BarChartWidget'
 import { useFetchOrdersQuery } from '@/lib/queries/queries'
+import { Hammer } from 'lucide-react'
 
 type Props = {}
 
@@ -59,14 +60,27 @@ const Page = (props: Props) => {
                         error={ordersError}
                     />
                 </div>
-                {/* <div className='w-full h-1/2 flex gap-4'>
-                    <TableWidget
+                <div className='w-full h-1/2 flex gap-4'>
+                    {/* <TableWidget
                         ordersResponse={ordersResponse}
                         error={ordersError}
                         isLoading={ordersLoading}
-                    />
-                    <Card/>
-                </div> */}
+                    /> */}
+                    <Card>
+                        <span className={titleClass}>Table</span>
+                        <p className='text-[#2081FF] font-medium flex gap-1 items-center'>
+                            <Hammer size={14} color='#2081FF'/>
+                            Coming soon
+                        </p>
+                    </Card>
+                    <Card>
+                        <span className={titleClass}>KPI Metrics</span>
+                        <p className='text-[#2081FF] font-medium flex gap-1 items-center'>
+                            <Hammer size={14} color='#2081FF'/>
+                            Coming soon
+                        </p>
+                    </Card>
+                </div>
             </div>
         </div>
     )

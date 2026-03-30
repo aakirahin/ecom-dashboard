@@ -1,39 +1,119 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Ecom Dashboard
+
+An interactive e-commerce analytics dashboard built with Next.js, React Query, and Recharts.
+
+The app visualizes mock commerce data (orders, products, customers) and includes:
+
+- KPI summaries and period-over-period comparisons
+- Revenue trend and breakdown charts
+- Search, sort, and pagination for order history
+- Optional chat endpoint for generated insights
+- Configurable widget-based dashboard experiments (COMING SOON)
+
+## Tech Stack
+
+- Next.js (App Router)
+- React + TypeScript
+- Tailwind CSS
+- TanStack React Query
+- Recharts
+- Faker (mock data generation)
+
+## Project Goals
+
+- Provide a realistic analytics UI for e-commerce reporting
+- Keep data logic and chart utilities reusable
+- Experiment with customizable dashboard widgets
+- Practice scalable frontend architecture patterns
+
+## Features
+
+- Dashboard page with:
+	- KPI cards
+	- Revenue line trend
+	- Category/region pie breakdowns
+	- Order history table
+- Widgets page for modular chart/table widgets
+- Date and category/region filtering
+- API routes for orders, products, customers, and dashboard aggregates
+- Mock data generation at startup
+
+## API Endpoints
+
+- `GET /api/orders`
+	- Search, sort, filter, paginate orders
+- `GET /api/customers`
+	- Search, sort, filter, paginate customers
+- `GET /api/products`
+	- Filter, sort, paginate products
+- `GET /api/dashboard`
+	- Returns aggregated dashboard payload (KPIs + chart data)
+- `POST /api/chat`
+	- Proxy endpoint for chat responses via OpenRouter
+
+## Environment Variables
+
+Create a `.env.local` file in the project root:
+
+```bash
+API_KEY=your_openrouter_api_key
+```
+
+`API_KEY` is required only for `POST /api/chat`.
 
 ## Getting Started
 
-First, run the development server:
+1. Install dependencies:
+
+```bash
+npm install
+```
+
+2. Add environment variables (optional if you are not using chat).
+
+3. Start development server:
 
 ```bash
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+4. Open:
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+```text
+http://localhost:3000
+```
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## Available Scripts
 
-## Learn More
+- `npm run dev` - start development server
+- `npm run build` - build for production
+- `npm run start` - run production build
+- `npm run lint` - run ESLint
 
-To learn more about Next.js, take a look at the following resources:
+## Data Model Snapshot
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+Generated mock dataset includes:
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+- ~12,000 orders
+- ~3,000 customers
+- ~60 products
 
-## Deploy on Vercel
+Orders include fields such as date, revenue, product category, region, and customer id.
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+## Architecture Notes
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
-# ecom-dashboard
-# ecom-dashboard
-# ecom-dashboard
+- React Query handles server-state fetching and caching
+- UI state (search/sort/pagination/filter controls) is managed in reducer/context patterns
+- Shared utility functions build chart-friendly data from raw entities
+- Widget components are intended to be composable and extensible
+
+## Roadmap Ideas
+
+- Drag-and-drop widget layout customization
+- Persisted dashboard layout/preferences
+- Dedicated chart aggregation endpoints for heavier datasets
+- Broader test coverage for query builders and chart utilities
+
+## License
+
+Internal/demo project. Add a license if you plan to open source it.

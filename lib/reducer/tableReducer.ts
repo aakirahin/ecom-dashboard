@@ -2,7 +2,6 @@
 
 import { useCallback, useReducer } from "react"
 import { endDate, startDate } from "../utils/date"
-import { DashboardQueryState } from "../types/dashboard"
 
 export type TableFilters = {
     startDate?: string
