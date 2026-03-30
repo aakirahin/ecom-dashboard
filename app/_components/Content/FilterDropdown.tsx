@@ -47,10 +47,10 @@ const FilterDropdown = ({
     filters,
     setFilters,
 }: Props) => {
-    const showAll = filters.categories.length === 0 && filters.regions.length === 0
+    const showAll = filters.product_category.length === 0 && filters.region.length === 0
 
     const toggleFilter = (type: keyof DashboardQueryState, value: string) => {
-        const valuesArray = type === 'categories' ? CATEGORIES : REGIONS
+        const valuesArray = type === 'product_category' ? CATEGORIES : REGIONS
         const currentValues = filters[type]
         let updatedValues: string[]
 
@@ -70,23 +70,23 @@ const FilterDropdown = ({
                 <input
                     type='checkbox'
                     checked={showAll}
-                    onChange={() => setFilters({ ...filters, categories: [], regions: [] })}
+                    onChange={() => setFilters({ ...filters, product_category: [], region: [] })}
                     className='accent-blue-500'
                 />
                 Show all
             </label>
             <FilterSection 
-                type='categories'
+                type='product_category'
                 section='Product Category' 
                 filters={filters} 
-                toggle={(value) => toggleFilter('categories', value)}
+                toggle={(value) => toggleFilter('product_category', value)}
                 values={CATEGORIES}
             />
             <FilterSection
-                type='regions'
+                type='region'
                 section='Region'
                 filters={filters}
-                toggle={(value) => toggleFilter('regions', value)}
+                toggle={(value) => toggleFilter('region', value)}
                 values={REGIONS}
             />
         </div>

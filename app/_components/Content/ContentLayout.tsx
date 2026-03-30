@@ -16,8 +16,8 @@ const ContentLayout = (props: Props) => {
   const [dashboardFilters, setDashboardFilters] = useState<DashboardQueryState>({ 
     startDate,
     endDate,
-    categories: [], 
-    regions: [] 
+    product_category: [], 
+    region: [] 
   })
 
   const { 
@@ -36,26 +36,29 @@ const ContentLayout = (props: Props) => {
         <KPIMetrics
           dashboard={dashboardData}
           isLoading={isDashboardLoading}
-          error={dashboardError as Error | null}
+          error={dashboardError}
         />
         <RevenueTrend 
           data={dashboardData?.revenueTrend ?? []}
           dashboard={dashboardData}
           isLoading={isDashboardLoading}
+          dashboardError={dashboardError}
         />
       </div>
       <div className='flex flex-1 overflow-auto gap-4 h-1/2'>
-        <OrderHistory dashboardFilters={dashboardFilters}/>
+        <OrderHistory filters={dashboardFilters}/>
         <div className='flex gap-4 w-1/2'>
           <Breakdown
-            title='Category'
+            title='Orders by Product Category'
             data={dashboardData?.categoryBreakdown ?? []}
             isLoading={isDashboardLoading}
+            error={dashboardError}
           />
           <Breakdown
-            title='Region'
+            title='Orders by Region'
             data={dashboardData?.regionBreakdown ?? []}
             isLoading={isDashboardLoading}
+            error={dashboardError}
           />
         </div>
       </div>

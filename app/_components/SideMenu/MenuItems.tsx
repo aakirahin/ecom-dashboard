@@ -19,8 +19,8 @@ const menuItems: MenuItem[] = [
     icon: <LayoutDashboard size={16} color='#7F7F7F'/>
   },
   {
-    label: 'Customisation',
-    link: '/customisation',
+    label: 'Widgets',
+    link: '/widgets',
     icon: <Puzzle size={16} color='#7F7F7F'/>
   },
 ]

@@ -1,20 +1,20 @@
 import OrdersContextProvider from '@/app/_context/OrdersContextProvider'
 import React from 'react'
 import OrdersTable from './OrdersTable'
-import { DashboardFilters } from '@/lib/types/dashboard'
+import { DashboardQueryState } from '@/lib/types/dashboard'
 import { borderClass } from '@/lib/styles/tailwindClasses'
 
 type Props = {
-    dashboardFilters: DashboardFilters
+    filters: DashboardQueryState
 }
 
 const OrderHistory = ({
-    dashboardFilters
+    filters
 }: Props) => {
   return (
     <OrdersContextProvider>
         <div className={`bg-white ${borderClass} rounded-lg w-1/2 h-full p-4 gap-4 flex flex-col overflow-y-scroll`}>
-            <OrdersTable dashboardFilters={dashboardFilters}/>
+            <OrdersTable filters={filters}/>
         </div>
     </OrdersContextProvider>
   )

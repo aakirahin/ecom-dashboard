@@ -1,6 +1,3 @@
-import { DashboardQueryState } from "../types/dashboard";
-import { Order } from "../types/orders";
-
 export const paginate = <T>(
     items: T[], 
     page: number, 
@@ -17,7 +14,6 @@ export const paginate = <T>(
         data: items.slice(start, end)
     };
 }
-
 
 export const sortData = <T>(
   items: T[],
@@ -38,4 +34,37 @@ export const sortData = <T>(
             ? String(x).localeCompare(String(y))
             : String(y).localeCompare(String(x));
     });
+}
+
+export const filter = <T extends Record<string, any>>(type: 'orders' | 'products' | 'customers', data: T[], params: any) => {
+    switch (type) {
+        case 'orders':
+            const { search: orderSearch, startDate, endDate, regions, categories } = params;
+            return data.filter((d) => {
+                if (
+                    orderSearch && !d.order_id.toLowerCase().includes(orderSearch.toLowerCase()) ||
+                    regions.length && !regions.includes(d.region) ||
+                    categories.length && !categories.includes(d.product_category) ||
+                    startDate && new Date(d.date) < new Date(startDate) ||
+                    endDate && new Date(d.date) > new Date(endDate)
+                ) return false;
+                return true;
+            });
+        case 'products':
+            const { category } = params;
+            if (category) return data.filter((d) => d.category === category);
+            return data
+        case 'customers':
+            const { search: customerSearch, segment, country } = params;
+            return data.filter((d) => {
+                if (
+                    customerSearch && !d.customer_id.toLowerCase().includes(customerSearch.toLowerCase()) ||
+                    segment && d.segment != segment ||
+                    country && d.country != country
+                ) return false;
+                return true;
+            });
+        default:
+            return data;
+    }
 }

@@ -1,6 +1,6 @@
 import { NextResponse } from "next/server";
 import { staticData } from "@/lib/data/mockData";
-import { paginate, sortData } from "@/lib/utils/utils";
+import { filter, paginate, sortData } from "@/lib/utils/utils";
 import { Product } from "@/lib/types/products";
 import { PaginatedResponse } from "@/lib/types/data";
 
@@ -15,10 +15,7 @@ export function GET(req: Request): NextResponse<PaginatedResponse<Product>> {
         order = "asc"
     } = Object.fromEntries(searchParams.entries());
 
-    let filtered = products;
-
-    if (category) filtered = filtered.filter((p) => p.category === category);
-
+    let filtered = filter("products", products, { category });
     const sorted = sortData(
         filtered, 
         sort as keyof Product | null, 

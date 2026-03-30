@@ -1,3 +1,4 @@
+import { COLOURS } from "@/lib/utils/charts";
 import React from "react";
 import {
     PieChart as Chart,
@@ -6,17 +7,6 @@ import {
     Legend,
     Cell,
 } from "recharts";
-
-const COLORS = [
-    "#72B4EA",
-    "#20BF55",
-    "#00C49F",
-    "#B8D9F4",
-    "#8884D8",
-    "#82CA9D",
-    "#A569BD",
-    "#FFC857",
-];
 
 type DataItem = {
     name: string;
@@ -53,7 +43,7 @@ const PieChart = ({ data }: Props) => {
                 label={renderLabel}
             >
                 {data.map((_, index) => (
-                    <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
+                    <Cell key={`cell-${index}`} fill={COLOURS[index % COLOURS.length]} />
                 ))}
             </Pie>
         </Chart>

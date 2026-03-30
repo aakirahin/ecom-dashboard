@@ -13,12 +13,14 @@ type Props = {
   data: RevenueTrendPoint[]
   dashboard: DashboardResponse | undefined
   isLoading: boolean
+  dashboardError: Error | null
 }
 
 const RevenueTrend = ({
   data,
   dashboard,
-  isLoading
+  isLoading,
+  dashboardError
 }: Props) => {
   const [showInsights, setShowInsights] = useState(false)
 
@@ -31,15 +33,17 @@ const RevenueTrend = ({
   }
 
   return (
-    <div className={` ${cardClass} w-2/3 p-4 flex flex-col gap-4`}>
+    <div className={` ${cardClass} w-2/3`}>
       <div className='flex justify-between'>
         <span className={titleClass}>Revenue Trend</span>
         <InsightsButton
           handleInsightsToggle={handleInsightsToggle}
           isLoading={isFetching}
           label={showInsights ? 'Hide insights' : 'View insights'}
+          error={dashboardError}
         />
       </div>
+      {dashboardError && <p className='p-2 text-sm text-red-600'>Error loading revenue trend.</p>}
       <div className='flex h-full'>
         {
           isLoading ? 
@@ -63,7 +67,7 @@ const RevenueTrend = ({
                 </p>
               </span>
             }
-            {error && !isFetching && <p className='px-2 pb-2 text-sm text-red-600'>{(error as Error).message}</p>}
+            {error && <p className='p-2 text-sm text-red-600'>{(error as Error).message}</p>}
             {insightsVisible && (
               <>
                 <span className='flex gap-1 items-center'>

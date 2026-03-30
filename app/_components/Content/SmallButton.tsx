@@ -14,7 +14,7 @@ const SmallButton = ({
 }: Props) => {
     return (
         <button 
-            className={`flex gap-1 items-center font-medium bg-white border border-gray-300 rounded-lg py-0.5 px-2 ${shadowClass} text-[13px] hover:shadow-gray-200 hover:border-gray-400 ${focusRingClass} focus:ring-gray-400 cursor-pointer`}
+            className={`flex gap-1 items-center font-medium bg-white border border-gray-300 rounded-lg py-0.5 px-2 ${shadowClass} text-xs hover:shadow-gray-200 hover:border-gray-400 ${focusRingClass} focus:ring-gray-400 cursor-pointer`}
             aria-label={label}
             onClick={onClick}
         >

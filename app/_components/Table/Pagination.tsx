@@ -45,6 +45,7 @@ const PageNumbers = ({
     currentPage,
     totalPages
 }: PageNumberProps) => {
+    // Page numbers to display
     const pageNumbers = useMemo(() => {
         if (totalPages < 1) return []
 
@@ -56,7 +57,6 @@ const PageNumbers = ({
             currentPage + 1,
         ])
 
-        // Array of all page numbers
         return Array.from(pageNumbers)
             .filter((pageNumber) => pageNumber >= 1 && pageNumber <= totalPages)
             .sort((a, b) => a - b)

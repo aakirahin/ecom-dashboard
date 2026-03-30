@@ -1,5 +1,7 @@
 const formatDate = (date: Date) => date.toISOString().split('T')[0]
 
+export const toISODate = (date: Date) => formatDate(date)
+
 const today = new Date()
 const lastMonth = new Date(today.getFullYear(), today.getMonth() - 1, today.getDate())
 

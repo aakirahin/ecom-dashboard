@@ -17,8 +17,6 @@ type DateRange = {
     endDate: Date | null
 }
 
-const buttonStyle = `flex gap-1 items-center font-medium bg-white border border-gray-300 py-0.5 px-2 ${shadowClass} text-[13px] hover:shadow-gray-200 hover:border-gray-400 ${focusRingClass} focus:ring-gray-400`
-
 const DateFilter = ({
     filters,
     setFilters
@@ -40,23 +38,13 @@ const DateFilter = ({
     }
 
     return (
-        <div className='flex gap-0'>
-            <DatePicker
-                className={buttonStyle + ' rounded-bl-lg rounded-tl-lg'}
-                startDate={dateRange.startDate}
-                endDate={dateRange.endDate}
-                onChange={handleDateChange}
-                selectsRange
-            />
-            <select
-                className={buttonStyle + ' rounded-br-lg rounded-tr-lg'}
-            >
-                <option value="weekly">Weekly</option>
-                <option value="monthly">Monthly</option>
-                <option value="yearly">Yearly</option>
-                <option value="custom">Custom</option>
-            </select>
-        </div>
+        <DatePicker
+            className={`flex gap-1 items-center font-medium bg-white border border-gray-300 py-0.5 px-2 ${shadowClass} text-xs hover:shadow-gray-200 hover:border-gray-400 ${focusRingClass} focus:ring-gray-400 rounded-lg`}
+            startDate={dateRange.startDate}
+            endDate={dateRange.endDate}
+            onChange={handleDateChange}
+            selectsRange
+        />
     )
 }
 

@@ -46,7 +46,9 @@ const fetchDashboard = async (params: DashboardQueryState): Promise<DashboardRes
 export const useFetchOrdersQuery = (state: TableState<Order>) => {
     const { data, isLoading, error } = useQuery<PaginatedResponse<Order>>({
         queryKey: ['orders', state],
-        queryFn: () => fetchOrders(state)
+        queryFn: () => fetchOrders(state),
+        retry: false,
+        staleTime: 1000 * 60 * 60, // 1 hour
     })
 
     return { data, isLoading, error }
@@ -55,7 +57,9 @@ export const useFetchOrdersQuery = (state: TableState<Order>) => {
 export const useFetchCustomersQuery = () => {
     const { data, isLoading, error } = useQuery({
         queryKey: ['customers'],
-        queryFn: fetchCustomers
+        queryFn: fetchCustomers,
+        retry: false,
+        staleTime: 1000 * 60 * 60, // 1 hour
     })
 
     return { data, isLoading, error }
@@ -64,7 +68,9 @@ export const useFetchCustomersQuery = () => {
 export const useFetchProductsQuery = () => {
     const { data, isLoading, error } = useQuery({
         queryKey: ['products'],
-        queryFn: fetchProducts
+        queryFn: fetchProducts,
+        retry: false,
+        staleTime: 1000 * 60 * 60, // 1 hour
     })
 
     return { data, isLoading, error }
@@ -73,7 +79,9 @@ export const useFetchProductsQuery = () => {
 export const useFetchDashboardQuery = (params: DashboardQueryState) => {
     const { data, isLoading, error } = useQuery<DashboardResponse>({
         queryKey: ['dashboard', params],
-        queryFn: () => fetchDashboard(params)
+        queryFn: () => fetchDashboard(params),
+        retry: false,
+        staleTime: 1000 * 60 * 60, // 1 hour
     })
 
     return { data, isLoading, error }

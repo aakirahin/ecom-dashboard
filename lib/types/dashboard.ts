@@ -1,8 +1,8 @@
 export type DashboardQueryState = {
     startDate: string;
     endDate: string;
-    categories: string[];
-    regions: string[];
+    product_category: string[];
+    region: string[];
 }
 
 export type DashboardMetricSummary = {

@@ -6,7 +6,7 @@ import Search from './Search';
 import TableLoading from '../SkeletonLoading/TableLoading';
 
 type Props<T> = {
-  title: string
+  title?: string
   columns: Column<T>[];
   error: Error | null
   isLoading: boolean
@@ -36,19 +36,23 @@ const DataTable = <T extends Record<string, any>>({
     <div className='flex flex-col gap-2'>
       <div className='flex justify-between items-center mb-2'>
         <span className='text-[16px] text-[#626366] font-medium'>{title}</span>
-        <Search/>
+        <Search error={error}/>
       </div>
-      {error && <p className='text-red-600'>Error loading orders.</p>}
-      {isLoading && <TableLoading/>}
-      {rows && !isLoading &&
-        <table className='divide-y divide-gray-200 w-full'>
-          <TableHeader<T> columns={columns}/>
-          <TableBody<T> data={rows} columns={columns}/>
-        </table>
-      }
-      {!rows && !isLoading ?
-        <p className='p-2'>No orders found.</p> :
-        <Pagination totalItems={total} totalPages={totalPages}/>
+      {
+        error ? 
+        <p className='text-red-600'>Error loading orders.</p> :
+        <>
+          {isLoading && <TableLoading/>}
+          {rows && !isLoading &&
+            <>
+              <table className='divide-y divide-gray-200 w-full'>
+                <TableHeader<T> columns={columns}/>
+                <TableBody<T> data={rows} columns={columns}/>
+              </table>
+              <Pagination totalItems={total} totalPages={totalPages}/>
+            </>
+          }
+        </>
       }
     </div>
   );

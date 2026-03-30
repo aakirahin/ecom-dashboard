@@ -2,8 +2,7 @@ import { NextResponse } from "next/server";
 import { staticData } from "@/lib/data/mockData";
 import { Order } from "@/lib/types/orders";
 import { PaginatedResponse } from "@/lib/types/data";
-import { filterOrders } from "@/lib/utils/dashboard";
-import { paginate, sortData } from "@/lib/utils/utils";
+import { filter, paginate, sortData } from "@/lib/utils/utils";
 
 export function GET(req: Request): NextResponse<PaginatedResponse<Order>> {
     const { orders } = staticData;
@@ -17,15 +16,10 @@ export function GET(req: Request): NextResponse<PaginatedResponse<Order>> {
         sort,
         order = "asc"
     } = Object.fromEntries(searchParams.entries());
-
     const regions = searchParams.getAll("region");
     const categories = searchParams.getAll("category");
 
-    let filtered = orders;
-
-    if (search) filtered = filtered.filter((o) => o.order_id.toLowerCase().includes(search.toLowerCase()));
-    filtered = filterOrders(filtered, { startDate, endDate, regions, categories });
-    
+    let filtered = filter("orders", orders, { search, startDate, endDate, regions, categories });
     const sorted = sortData(
         filtered, 
         sort as keyof Order | null, 

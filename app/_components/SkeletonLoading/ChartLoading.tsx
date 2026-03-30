@@ -3,7 +3,7 @@ import React from 'react'
 
 type Props = {}
 
-const barClassName = `w-12 ${skeletonClass}`
+const barClassName = `flex-1 ${skeletonClass}`
 
 const SkeletonBars = () => (
     <>

@@ -5,19 +5,21 @@ type Props = {
     handleInsightsToggle: () => void
     isLoading: boolean
     label: string
+    error: Error | null
 }
 
 // Most of the code in here is just styling
 const InsightsButton = ({ 
     handleInsightsToggle, 
     isLoading, 
-    label 
+    label,
+    error
 }: Props) => {
     return (
         <button
-            className='group relative overflow-hidden flex gap-1 items-center bg-white border border-[#A383FF] rounded-lg py-0.5 px-2 shadow-md shadow-purple-100 text-[13px] hover:border-[#C9B2FD] transition-all duration-300 cursor-pointer disabled:opacity-60 disabled:cursor-not-allowed'
+            className='group relative overflow-hidden flex gap-1 items-center bg-white border border-[#A383FF] rounded-lg py-0.5 px-2 shadow-md shadow-purple-100 text-xs hover:border-[#C9B2FD] transition-all duration-300 cursor-pointer disabled:opacity-60 disabled:cursor-not-allowed'
             aria-label="View key insights"
-            disabled={isLoading}
+            disabled={isLoading || !!error}
             onClick={handleInsightsToggle}
         >
             <span

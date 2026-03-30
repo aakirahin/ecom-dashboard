@@ -2,15 +2,15 @@ import { borderClass, cardClass, titleClass } from '@/lib/styles/tailwindClasses
 import React from 'react'
 
 type Props = {
-    title: string
+  children?: React.ReactNode
 }
 
 const Card = ({
-    title
+  children
 }: Props) => {
   return (
-    <div className={`${cardClass} w-1/3 h-full`}>
-        <span className={titleClass}>{title}</span>
+    <div className={`${cardClass} flex-1 h-full`}>
+      {children}
     </div>
   )
 }

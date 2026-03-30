@@ -16,7 +16,7 @@ type TableActionsContext<Order> = {
     handleSearch: (value: string) => void
     handleSort: (sort: Sort<Order>) => void
     handlePagination: (pagination: Pagination) => void
-    handleFilter: (filters: TableFilters<Order>) => void
+    // handleFilter: (filters: TableFilters<Order>) => void
 }
 
 const TableStateContext = createContext<TableStateContext<Order> | null>(null)

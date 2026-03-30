@@ -1,20 +1,29 @@
 "use client"
 
 import React, { useEffect, useMemo, useRef, useState } from 'react'
-import { Download, ListFilter, Puzzle } from 'lucide-react'
+import { Download, ListFilter, Pencil, Puzzle } from 'lucide-react'
 import SmallButton from './SmallButton'
 import Link from 'next/link'
 import DateFilter from './DateFilter'
 import FilterDropdown from './FilterDropdown'
 import { useHandleExport } from '@/lib/utils/exportCSV'
 import { endDate, startDate } from '@/lib/utils/date'
-import { initOrdersState } from '@/lib/utils/dashboard'
 import { DashboardQueryState } from '@/lib/types/dashboard'
+import { TableState } from '@/lib/reducer/tableReducer'
+import { Order } from '@/lib/types/orders'
 
 type Props = {
   filters: DashboardQueryState
   setFilters: (f: DashboardQueryState) => void
 }
+
+// INITIAL FETCH QUERY
+const initOrdersState = (startDate: string, endDate: string): TableState<Order> => ({
+    search: "",
+    sort: { sortKey: "date", sortOrder: "desc" },
+    pagination: { page: 1, perPage: 20000 },
+    filters: { startDate, endDate }
+})
 
 const FilterBar = ({ 
   filters, 
@@ -25,12 +34,7 @@ const FilterBar = ({
 
   const exportQueryState = useMemo(() => ({
     ...initOrdersState(startDate, endDate),
-    filters: {
-      startDate,
-      endDate,
-      ...(filters.categories.length ? { product_category: filters.categories } : {}),
-      ...(filters.regions.length ? { region: filters.regions } : {}),
-    }
+    filters
   }), [filters])
   const handleExport = useHandleExport(exportQueryState)
 
@@ -45,9 +49,9 @@ const FilterBar = ({
 
   return (
     <div className='flex justify-between items-center'>
-      <Link href="/customisation">
+      <Link href="/coming-soon">
         <SmallButton
-          icon={<Puzzle size={12} color='#7F7F7F'/>}
+          icon={<Pencil size={12} color='#7F7F7F'/>}
           label='Customise'
         />
       </Link>

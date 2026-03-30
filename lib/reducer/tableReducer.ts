@@ -2,15 +2,20 @@
 
 import { useCallback, useReducer } from "react"
 import { endDate, startDate } from "../utils/date"
+import { DashboardQueryState } from "../types/dashboard"
 
-export type TableFilterValue = string | string[]
-export type TableFilters<T> = Partial<Record<keyof T | "startDate" | "endDate", TableFilterValue>>
+export type TableFilters = {
+    startDate?: string
+    endDate?: string
+    region?: string[]
+    product_category?: string[]
+}
 
 export type TableState<T> = {
     search: string
     sort: Sort<T>
     pagination: Pagination
-    filters: TableFilters<T>
+    filters?: TableFilters
 }
 
 export type Pagination = {
@@ -80,7 +85,9 @@ const initialTableState: TableState<any> = {
     },
     filters: {
         startDate: startDate,
-        endDate: endDate
+        endDate: endDate,
+        region: [],
+        product_category: []
     }
 }
 
