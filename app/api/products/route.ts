@@ -8,14 +8,14 @@ export function GET(req: Request): NextResponse<PaginatedResponse<Product>> {
     const { products } = staticData;
     const { searchParams } = new URL(req.url);
     const {
-        category,
         page = 1,
         pageSize = 50,
         sort,
         order = "asc"
     } = Object.fromEntries(searchParams.entries());
+    const categories = searchParams.getAll("category");
 
-    let filtered = filter("products", products, { category });
+    let filtered = filter("products", products, { categories });
     const sorted = sortData(
         filtered, 
         sort as keyof Product | null, 

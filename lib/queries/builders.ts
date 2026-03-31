@@ -1,30 +1,61 @@
 import { TableState } from "../reducer/tableReducer"
+import { Customer } from "../types/customers"
 import { DashboardQueryState } from "../types/dashboard"
 import { Order } from "../types/orders"
+import { Product } from "../types/products"
 import { startDate as start, endDate as end } from "../utils/date"
 
-export const buildOrderQueryParams = (state: TableState<Order>) => {
+type Props = 
+    { type: "orders", state: TableState<Order> } | 
+    { type: "customers", state: TableState<Customer> } | 
+    { type: "products", state: TableState<Product> }
+
+export const buildQueryParams = ({ type, state }: Props) => {
     const { search, sort, pagination, filters = {} } = state
-    const { 
-        startDate = start, 
-        endDate = end, 
-        region = [], 
-        product_category = [] 
-    } = filters
     const queryParams = new URLSearchParams()
 
     if (search.trim()) queryParams.set("search", search.trim())
     if (sort.sortKey) queryParams.set("sort", String(sort.sortKey))
     if (sort.sortOrder) queryParams.set("order", sort.sortOrder)
-        
-    if (startDate) queryParams.set("startDate", String(startDate))
-    if (endDate) queryParams.set("endDate", String(endDate))
 
-    if (region && region.length) region.forEach((region) => queryParams.append("region", region))
-    if (product_category && product_category.length) product_category.forEach((category) => queryParams.append("category", category))
-                
     queryParams.set("page", String(pagination.page))
     queryParams.set("pageSize", String(pagination.perPage))
+
+    switch(type) {
+        case "orders": {
+            const { 
+                startDate = start, 
+                endDate = end, 
+                region = [], 
+                product_category = [] 
+            } = filters
+
+            if (startDate) queryParams.set("startDate", String(startDate))
+            if (endDate) queryParams.set("endDate", String(endDate))
+
+            if (region && region.length) region.forEach((region) => queryParams.append("region", region))
+            if (product_category && product_category.length) product_category.forEach((category) => queryParams.append("category", category))
+            break
+        }
+        case "customers": {
+            const { 
+                segment = [], 
+                country = [] 
+            } = filters
+
+            if (segment && segment.length) segment.forEach((segment) => queryParams.append("segment", segment))
+            if (country && country.length) country.forEach((country) => queryParams.append("country", country))
+            break
+        }
+        case "products": {
+            const { 
+                category = []
+            } = filters
+            
+            if (category && category.length) category.forEach((category) => queryParams.append("category", category))
+            break
+        }
+    }
 
     return queryParams
 }

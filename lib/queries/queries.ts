@@ -4,13 +4,15 @@ import { useQuery } from "@tanstack/react-query"
 import { DashboardQueryState, DashboardResponse } from "@/lib/types/dashboard"
 import { Order } from "@/lib/types/orders"
 import { TableState } from "@/lib/reducer/tableReducer"
-import { buildDashboardQueryParams, buildOrderQueryParams } from "./builders"
+import { buildDashboardQueryParams, buildQueryParams } from "./builders"
 import { PaginatedResponse } from "../types/data"
+import { Customer } from "../types/customers"
+import { Product } from "../types/products"
 
 // FETCH
 
 const fetchOrders = async (state: TableState<Order>): Promise<PaginatedResponse<Order>> => {
-    const queryParams = buildOrderQueryParams(state)
+    const queryParams = buildQueryParams({ type: "orders", state })
 
     const response = await fetch(`/api/orders?${queryParams.toString()}`)
 
@@ -18,15 +20,19 @@ const fetchOrders = async (state: TableState<Order>): Promise<PaginatedResponse<
     return response.json() as Promise<PaginatedResponse<Order>>
 }
 
-const fetchCustomers = async () => {
-    const response = await fetch('/api/customers')
+const fetchCustomers = async (state: TableState<Customer>): Promise<PaginatedResponse<Customer>> => {
+    const queryParams = buildQueryParams({ type: "customers", state })
+
+    const response = await fetch(`/api/customers?${queryParams.toString()}`)
 
     if (!response.ok) throw new Error('Something went wrong.')
     return response.json()
 }
 
-const fetchProducts = async () => {
-    const response = await fetch('/api/products')
+const fetchProducts = async (state: TableState<Product>): Promise<PaginatedResponse<Product>> => {
+    const queryParams = buildQueryParams({ type: "products", state })
+
+    const response = await fetch(`/api/products?${queryParams.toString()}`)
 
     if (!response.ok) throw new Error('Something went wrong.')
     return response.json()
@@ -54,10 +60,10 @@ export const useFetchOrdersQuery = (state: TableState<Order>) => {
     return { data, isLoading, error }
 }
 
-export const useFetchCustomersQuery = () => {
+export const useFetchCustomersQuery = (state: TableState<Customer>) => {
     const { data, isLoading, error } = useQuery({
-        queryKey: ['customers'],
-        queryFn: fetchCustomers,
+        queryKey: ['customers', state],
+        queryFn: () => fetchCustomers(state),
         retry: false,
         staleTime: 1000 * 60 * 60, // 1 hour
     })
@@ -65,10 +71,10 @@ export const useFetchCustomersQuery = () => {
     return { data, isLoading, error }
 }
 
-export const useFetchProductsQuery = () => {
+export const useFetchProductsQuery = (state: TableState<Product>) => {
     const { data, isLoading, error } = useQuery({
-        queryKey: ['products'],
-        queryFn: fetchProducts,
+        queryKey: ['products', state],
+        queryFn: () => fetchProducts(state),
         retry: false,
         staleTime: 1000 * 60 * 60, // 1 hour
     })

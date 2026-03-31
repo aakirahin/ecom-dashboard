@@ -1,5 +1,5 @@
 import React from 'react'
-import { useTableActions, useTableState } from '@/app/_context/OrdersContextProvider';
+import { useTableActions, useTableState } from '@/app/_context/TableContextProvider';
 import { borderClass, focusRingClass } from '@/lib/styles/tailwindClasses';
 
 type Props = {
@@ -15,10 +15,10 @@ const Search = ({
     return (
         <input
             type='text'
-            aria-label='Search orders'
+            aria-label='Search'
             value={state.search}
             onChange={(e) => handleSearch(e.target.value)}
-            placeholder='Search orders'
+            placeholder='Search'
             className={`py-2 px-4 rounded-md ${borderClass} ${focusRingClass}`}
             disabled={!!error}
         />

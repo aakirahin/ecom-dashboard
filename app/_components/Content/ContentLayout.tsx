@@ -38,7 +38,7 @@ const ContentLayout = (props: Props) => {
           isLoading={isDashboardLoading}
           error={dashboardError}
         />
-        <RevenueTrend 
+        <RevenueTrend
           data={dashboardData?.revenueTrend ?? []}
           dashboard={dashboardData}
           isLoading={isDashboardLoading}

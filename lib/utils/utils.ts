@@ -39,28 +39,28 @@ export const sortData = <T>(
 export const filter = <T extends Record<string, any>>(type: 'orders' | 'products' | 'customers', data: T[], params: any) => {
     switch (type) {
         case 'orders':
-            const { search: orderSearch, startDate, endDate, regions, categories } = params;
+            const { search: orderSearch, startDate, endDate, regions, categories: orderCategories } = params;
             return data.filter((d) => {
                 if (
                     orderSearch && !d.order_id.toLowerCase().includes(orderSearch.toLowerCase()) ||
                     regions.length && !regions.includes(d.region) ||
-                    categories.length && !categories.includes(d.product_category) ||
+                    orderCategories.length && !orderCategories.includes(d.product_category) ||
                     startDate && new Date(d.date) < new Date(startDate) ||
                     endDate && new Date(d.date) > new Date(endDate)
                 ) return false;
                 return true;
             });
         case 'products':
-            const { category } = params;
-            if (category) return data.filter((d) => d.category === category);
+            const { categories: productCategories } = params;
+            if (productCategories.length) return data.filter((d) => (productCategories.includes(d.category)));
             return data
         case 'customers':
-            const { search: customerSearch, segment, country } = params;
+            const { search: customerSearch, segments, countries } = params;
             return data.filter((d) => {
                 if (
                     customerSearch && !d.customer_id.toLowerCase().includes(customerSearch.toLowerCase()) ||
-                    segment && d.segment != segment ||
-                    country && d.country != country
+                    segments.length && !segments.includes(d.segment) ||
+                    countries.length && !countries.includes(d.country)
                 ) return false;
                 return true;
             });

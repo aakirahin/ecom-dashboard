@@ -1,4 +1,4 @@
-import { useTableActions, useTableState } from "@/app/_context/OrdersContextProvider"
+import { useTableActions, useTableState } from "@/app/_context/TableContextProvider"
 import { Pagination as PaginationType } from "@/lib/reducer/tableReducer"
 import { ChevronLeft, ChevronRight } from "lucide-react"
 import { useMemo } from "react"

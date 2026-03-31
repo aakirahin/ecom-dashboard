@@ -3,7 +3,7 @@
 import { useCallback } from "react";
 import { Order } from "../types/orders";
 import { TableState } from "../reducer/tableReducer";
-import { buildOrderQueryParams } from "../queries/builders";
+import { buildQueryParams } from "../queries/builders";
 
 const convertToCSV = <T>(data: T[]) => {
     const array = typeof data !== 'object' ? JSON.parse(data) : data;
@@ -41,7 +41,7 @@ export const useHandleExport = (exportQueryState: TableState<Order>) => {
 
         // GET FILTERED ORDERS
         // TODO: MAKE REUSABLE
-        const response = await fetch(`/api/orders?${buildOrderQueryParams(exportState).toString()}`)
+        const response = await fetch(`/api/orders?${buildQueryParams({ type: "orders", state: exportState }).toString()}`)
         if (!response.ok) throw new Error('Failed to export orders.')
         
         const payload = await response.json() as { data: Order[] }

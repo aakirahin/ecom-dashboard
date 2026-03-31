@@ -3,18 +3,20 @@
 import { useCallback, useReducer } from "react"
 import { endDate, startDate } from "../utils/date"
 
-export type TableFilters = {
+type FilterKey<T> = Exclude<Extract<keyof T, string>, "startDate" | "endDate">
+
+type FilterValue = string | number | boolean | string[] | number[] | boolean[]
+
+export type TableFilters<T extends Record<string, any> = Record<string, any>> = {
     startDate?: string
     endDate?: string
-    region?: string[]
-    product_category?: string[]
-}
+} & Partial<Record<FilterKey<T>, FilterValue>>
 
-export type TableState<T> = {
+export type TableState<T extends Record<string, any>> = {
     search: string
     sort: Sort<T>
     pagination: Pagination
-    filters?: TableFilters
+    filters?: TableFilters<T>
 }
 
 export type Pagination = {
@@ -34,7 +36,7 @@ enum ACTION {
     // FILTER = "SET_FILTERS"
 }
 
-type TableAction<T> = 
+type TableAction<T extends Record<string, any>> = 
     { type: ACTION.SEARCH, payload: string } |
     { type: ACTION.SORT, payload: Sort<T> } |
     { type: ACTION.PAGINATION, payload: Pagination }
@@ -72,7 +74,7 @@ const tableReducer = <T extends Record<string, any>>(state: TableState<T>, actio
     }
 }
 
-const initialTableState: TableState<any> = {
+const createInitialTableState = <T extends Record<string, unknown>>(): TableState<T> => ({
     search: "",
     sort: {
         sortKey: "",
@@ -83,15 +85,13 @@ const initialTableState: TableState<any> = {
         perPage: 5
     },
     filters: {
-        startDate: startDate,
-        endDate: endDate,
-        region: [],
-        product_category: []
-    }
-}
+        startDate,
+        endDate,
+    } as TableFilters<T>
+})
 
 export const useTableReducer = <T extends Record<string, any>>() => {
-    const [state, dispatch] = useReducer(tableReducer<T>, initialTableState)
+    const [state, dispatch] = useReducer(tableReducer<T>, createInitialTableState<T>())
 
     const handleSearch = useCallback((value: string) => (
         dispatch({

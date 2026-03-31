@@ -1,26 +1,26 @@
 "use client"
 
 import { Pagination, Sort, TableFilters, TableState, useTableReducer } from '@/lib/reducer/tableReducer'
-import { Order } from '@/lib/types/orders'
 import React, { createContext, useContext } from 'react'
 
-type Props = {
+type Props<T> = {
+    reducer: TableStateContext<T> & TableActionsContext<T>
     children: React.ReactNode
 }
 
-type TableStateContext<Order> = {
-    state: TableState<Order>
+export type TableStateContext<T> = {
+    state: TableState<T>
 }
 
-type TableActionsContext<Order> = {
+export type TableActionsContext<T> = {
     handleSearch: (value: string) => void
-    handleSort: (sort: Sort<Order>) => void
+    handleSort: (sort: Sort<T>) => void
     handlePagination: (pagination: Pagination) => void
-    // handleFilter: (filters: TableFilters<Order>) => void
+    // handleFilter: (filters: TableFilters<T>) => void
 }
 
-const TableStateContext = createContext<TableStateContext<Order> | null>(null)
-const TableActionsContext = createContext<TableActionsContext<Order> | null>(null)
+const TableStateContext = createContext<TableStateContext<T> | null>(null)
+const TableActionsContext = createContext<TableActionsContext<T> | null>(null)
 
 export const useTableState = () => {
     const context = useContext(TableStateContext)
@@ -36,10 +36,11 @@ export const useTableActions = () => {
     return context
 }
 
-const OrdersContextProvider = ({
+const TableContextProvider = <T extends Record <string, any>>({
+    reducer,
     children
-}: Props) => {
-    const { state, ...actions } = useTableReducer<Order>()
+}: Props<T>) => {
+    const { state, ...actions } = reducer
 
     return (
         <TableStateContext.Provider value={{ state }}>
@@ -50,4 +51,4 @@ const OrdersContextProvider = ({
     )
 }
 
-export default OrdersContextProvider
+export default TableContextProvider

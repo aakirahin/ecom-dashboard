@@ -9,15 +9,15 @@ export function GET(req: Request): NextResponse<PaginatedResponse<Customer>> {
     const { searchParams } = new URL(req.url);
     const {
         search,
-        segment,
-        country,
         page = 1,
         pageSize = 50,
         sort,
         order = "asc"
-    } = Object.fromEntries(searchParams.entries());
+    } = Object.fromEntries(searchParams.entries());    
+    const segments = searchParams.getAll("segment");
+    const countries = searchParams.getAll("country");
 
-    let filtered = filter("customers", customers, { search, segment, country });
+    let filtered = filter("customers", customers, { search, segments, countries });
     const sorted = sortData(
         filtered, 
         sort as keyof Customer | null, 

@@ -4,6 +4,7 @@ import TableBody from './TableBody';
 import Pagination from './Pagination';
 import Search from './Search';
 import TableLoading from '../SkeletonLoading/TableLoading';
+import TableContextProvider, { TableActionsContext, TableStateContext } from '@/app/_context/TableContextProvider';
 
 type Props<T> = {
   title?: string
@@ -13,6 +14,7 @@ type Props<T> = {
   rows: T[]
   total: number
   totalPages: number
+  reducer: TableStateContext<T> & TableActionsContext<T>
 }
 
 export type Column<T> = {
@@ -31,30 +33,33 @@ const DataTable = <T extends Record<string, any>>({
   rows,
   total,
   totalPages,
+  reducer
 }: Props<T>) => {
   return (
-    <div className='flex flex-col gap-2'>
-      <div className='flex justify-between items-center mb-2'>
-        <span className='text-[16px] text-[#626366] font-medium'>{title}</span>
-        <Search error={error}/>
+    <TableContextProvider<T> reducer={reducer}>
+      <div className='flex flex-col gap-2'>
+        <div className='flex justify-between items-center mb-2'>
+          <span className='text-[16px] text-[#626366] font-medium'>{title}</span>
+          <Search error={error}/>
+        </div>
+        {
+          error ? 
+          <p className='text-red-600'>Error loading rows.</p> :
+          <>
+            {isLoading && <TableLoading/>}
+            {rows && !isLoading &&
+              <>
+                <table className='divide-y divide-gray-200 w-full'>
+                  <TableHeader<T> columns={columns}/>
+                  <TableBody<T> data={rows} columns={columns}/>
+                </table>
+                <Pagination totalItems={total} totalPages={totalPages}/>
+              </>
+            }
+          </>
+        }
       </div>
-      {
-        error ? 
-        <p className='text-red-600'>Error loading orders.</p> :
-        <>
-          {isLoading && <TableLoading/>}
-          {rows && !isLoading &&
-            <>
-              <table className='divide-y divide-gray-200 w-full'>
-                <TableHeader<T> columns={columns}/>
-                <TableBody<T> data={rows} columns={columns}/>
-              </table>
-              <Pagination totalItems={total} totalPages={totalPages}/>
-            </>
-          }
-        </>
-      }
-    </div>
+    </TableContextProvider>
   );
 }
 

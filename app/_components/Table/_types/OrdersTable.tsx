@@ -2,21 +2,21 @@
 
 import React, { useMemo } from 'react'
 import { Order } from '@/lib/types/orders';
-import DataTable from '../Table/DataTable';
-import { useTableState } from '@/app/_context/OrdersContextProvider';
 import { useDebounce } from '@/lib/utils/hooks';
 import { useFetchOrdersQuery } from '@/lib/queries/queries';
-import { DashboardQueryState } from '@/lib/types/dashboard';
 import { orderColumns } from '@/lib/utils/columns';
+import { TableFilters, useTableReducer } from '@/lib/reducer/tableReducer';
+import DataTable from '../DataTable';
 
 type Props = {
-  filters: DashboardQueryState
+  filters: TableFilters
 }
 
 const OrdersTable = ({ filters }: Props) => {
-  const { state } = useTableState();
-  const debouncedSearch = useDebounce(state.search, 1000)
+  const reducer = useTableReducer<Order>()
+  const { state, ...actions } = reducer
 
+  const debouncedSearch = useDebounce(state.search, 1000)
   const queryState = useMemo(() => ({
     ...state,
     search: debouncedSearch,
@@ -27,7 +27,7 @@ const OrdersTable = ({ filters }: Props) => {
   const rows = (ordersResponse?.data ?? []) as Order[]
   const total = ordersResponse?.total ?? 0
   const totalPages = ordersResponse?.totalPages ?? 0
-  
+
   return (
     <DataTable<Order> 
       title="Order History" 
@@ -38,6 +38,7 @@ const OrdersTable = ({ filters }: Props) => {
         rows,
         total,
         totalPages,
+        reducer
       }} 
     />
   )

@@ -1,6 +1,6 @@
 import React from 'react'
 import { Column } from './DataTable';
-import { useTableActions, useTableState } from '@/app/_context/OrdersContextProvider';
+import { useTableActions, useTableState } from '@/app/_context/TableContextProvider';
 
 type Props<T> = {
     columns: Column<T>[];
