@@ -11,7 +11,7 @@ const OrderHistory = ({
     filters
 }: Props) => {
     return (
-        <div className={`bg-white ${borderClass} rounded-lg w-1/2 h-full p-4 gap-4 flex flex-col overflow-y-scroll`}>
+        <div className={`bg-white ${borderClass} rounded-lg w-full xl:w-1/2 p-4 gap-4 flex flex-col`}>
             <OrdersTable filters={filters}/>
         </div>
     )

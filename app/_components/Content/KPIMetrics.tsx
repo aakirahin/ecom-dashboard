@@ -47,7 +47,7 @@ const Card = ({
   const trendColor = isIncrease ? 'text-green-600' : 'text-red-600'
 
   return (
-    <div className='flex flex-col w-1/2 p-4 items-baseline justify-between'>
+    <div className='flex flex-col md:w-1/2 sm:w-full p-4 items-baseline justify-between'>
       {icon}
       <div className='flex flex-col gap-1'>
         <span>{title}</span>
@@ -66,7 +66,7 @@ const RowCard = ({
   right
 }: { left: CardProps; right: CardProps }) => {
   return (
-    <div className='flex h-1/2 divide-x divide-gray-200'>
+    <div className='flex flex-col sm:flex-row sm:h-1/2 divide-y sm:divide-y-0 sm:divide-x divide-gray-200'>
       <Card
         title={left.title}
         value={left.value}
@@ -95,7 +95,7 @@ const KPIMetrics = ({
   const changes = dashboard?.kpis.changes ?? emptyChanges
 
   return (
-    <div className={`flex flex-col bg-white ${borderClass} divide-y divide-gray-200 rounded-lg w-1/3 p-4 font-medium`}>
+    <div className={`flex flex-col bg-white ${borderClass} divide-y divide-gray-200 rounded-lg w-auto xl:w-1/3 p-4 font-medium`}>
       <RowCard
         left={{
           title: 'Total Revenue',

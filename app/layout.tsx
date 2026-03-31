@@ -35,11 +35,13 @@ export default function RootLayout({
       className={`${inter.className} ${sofia.variable} h-full antialiased`}
     >
       <body className="min-h-full flex flex-col text-[14px]">
-        <div className='flex h-screen overflow-y-clip'>
+        <div className='flex min-h-screen lg:h-screen overflow-hidden'>
           <SideMenu/>
-          <Provider>
-            {children}
-          </Provider>
+          <main className='flex flex-1 min-h-0'>
+            <Provider>
+              {children}
+            </Provider>
+          </main>
         </div>
       </body>
     </html>

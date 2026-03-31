@@ -2,9 +2,7 @@ import Image from 'next/image'
 import Link from 'next/link'
 import React from 'react'
 
-type Props = {}
-
-const GitHubCard = (props: Props) => {
+const GitHubCard = () => {
     return (
         <div 
             className='relative flex flex-col gap-3 h-auto w-full border-2 border-[#96c3ff] border-solid rounded-lg p-4 text-white' 
@@ -37,7 +35,7 @@ const GitHubCard = (props: Props) => {
                 alt="Logo"
                 width={160}
                 height={160}
-                className="absolute bottom-[-45px] right-[-0px] opacity-15 pointer-events-none select-none"
+                className="absolute -bottom-11.25 right-0 opacity-15 pointer-events-none select-none"
                 loading="eager"
             />
         </div>

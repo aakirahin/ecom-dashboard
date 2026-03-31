@@ -33,7 +33,7 @@ const RevenueTrend = ({
   }
 
   return (
-    <div className={` ${cardClass} w-2/3`}>
+    <div className={` ${cardClass} w-full xl:w-2/3`}>
       <div className='flex justify-between'>
         <span className={titleClass}>Revenue Trend</span>
         <InsightsButton
@@ -44,11 +44,11 @@ const RevenueTrend = ({
         />
       </div>
       {dashboardError && <p className='p-2 text-sm text-red-600'>Error loading revenue trend.</p>}
-      <div className='flex h-full'>
+      <div className='flex h-full flex-col md:flex-row'>
         {
           isLoading ? 
           <ChartLoading/> :
-          <div className={`${insightsVisible ? "w-5/8" : "w-full flex-1"} p-4`}>
+          <div className={`${insightsVisible ? "md:w-5/8" : "w-full flex-1"} p-2 md:p-4`}>
             <LineChart<RevenueTrendPoint>
               data={data}
               xAxis="date"
@@ -58,7 +58,7 @@ const RevenueTrend = ({
         }
         {
           showInsights &&
-          <div className='flex flex-col gap-4 p-4 w-3/8'>
+          <div className='flex flex-col gap-4 p-3 md:p-4 w-full md:w-3/8 border-t md:border-t-0 md:border-l border-gray-200'>
             {isFetching && 
               <span className='flex items-center gap-1.5 mt-0 m-2'>
                 <BotMessageSquare size={16} color='#C8C8C8'/>
