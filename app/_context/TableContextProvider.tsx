@@ -3,7 +3,7 @@
 import { Pagination, Sort, TableFilters, TableState, useTableReducer } from '@/lib/reducer/tableReducer'
 import React, { createContext, useContext } from 'react'
 
-type Props<T> = {
+type Props<T extends Record<string, any>> = {
     reducer: TableStateContext<T> & TableActionsContext<T>
     children: React.ReactNode
 }
