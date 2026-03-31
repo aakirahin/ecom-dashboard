@@ -6,7 +6,7 @@ import Search from './Search';
 import TableLoading from '../SkeletonLoading/TableLoading';
 import TableContextProvider, { TableActionsContext, TableStateContext } from '@/app/_context/TableContextProvider';
 
-type Props<T> = {
+type Props<T extends Record<string, any>> = {
   title?: string
   columns: Column<T>[];
   error: Error | null
