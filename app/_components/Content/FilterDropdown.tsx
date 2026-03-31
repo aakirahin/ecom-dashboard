@@ -49,7 +49,7 @@ const FilterDropdown = ({
 }: Props) => {
     const showAll = filters.product_category.length === 0 && filters.region.length === 0
 
-    const toggleFilter = (type: keyof DashboardQueryState, value: string) => {
+    const toggleFilter = (type: "product_category" | "region", value: string) => {
         const valuesArray = type === 'product_category' ? CATEGORIES : REGIONS
         const currentValues = filters[type]
         let updatedValues: string[]
@@ -60,7 +60,7 @@ const FilterDropdown = ({
             updatedValues = [...currentValues, value]
             if (updatedValues.length === valuesArray.length) updatedValues = [] // If all values are selected, reset to show all
         }
-
+        
         setFilters({ ...filters, [type]: updatedValues })
     }
 

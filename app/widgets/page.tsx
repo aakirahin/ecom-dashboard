@@ -10,15 +10,13 @@ import { useFetchOrdersQuery } from '@/lib/queries/queries'
 import { Hammer } from 'lucide-react'
 import TableWidget from './_components/Widgets/TableWidget'
 
-type Props = {}
-
 // How do we make the dashboard customisable? 
 // - Drag + drop
 // - Removable widgets
 
 // Where to store layout information?
 
-const Page = (props: Props) => {
+const Page = () => {
     const { 
         data: ordersResponse, 
         isLoading: ordersLoading, 

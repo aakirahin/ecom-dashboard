@@ -1,9 +1,7 @@
 import { Construction } from 'lucide-react'
 import React from 'react'
 
-type Props = {}
-
-const Page = (props: Props) => {
+const Page = () => {
   return (
     <div className='flex flex-col gap-2 flex-1 h-full justify-center items-center'>
         <h1 className='flex gap-2 items-center font-sofia text-4xl text-[#626366] font-medium'>

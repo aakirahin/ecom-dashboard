@@ -7,9 +7,7 @@ import OrdersTable from '@/app/_components/Table/_types/OrdersTable'
 import CustomersTable from '@/app/_components/Table/_types/CustomersTable'
 import ProductsTable from '@/app/_components/Table/_types/ProductsTable'
 
-type Props = {}
-
-const TableWidget = (props: Props) => {
+const TableWidget = () => {
     const [filters] = useState<TableFilters>({
         startDate,
         endDate,

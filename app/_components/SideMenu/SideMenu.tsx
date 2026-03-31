@@ -2,9 +2,7 @@ import Image from 'next/image';
 import MenuItems from './MenuItems';
 import GitHubCard from './GitHubCard';
 
-type Props = {}
-
-const SideMenu = (props: Props) => {
+const SideMenu = () => {
   return (
     <>
       <div className='flex lg:hidden w-full items-center justify-between px-4 py-3 bg-white border-b border-gray-200 fixed top-0 left-0 z-40'>

@@ -1,8 +1,6 @@
 import { borderClass } from '@/lib/styles/tailwindClasses'
 import React from 'react'
 
-type Props = {}
-
 const skeletonClassName = 'bg-gray-100 rounded animate-pulse'
 
 const LoadingCard = () => (
@@ -21,7 +19,7 @@ const LoadingCardRow = () => (
     </div>
 )
 
-const KPILoading = (props: Props) => {
+const KPILoading = () => {
   return (
         <div className={`flex flex-col bg-white ${borderClass} divide-y divide-gray-200 rounded-lg w-1/3 p-4`}>
             <LoadingCardRow/>

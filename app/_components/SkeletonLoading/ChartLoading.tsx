@@ -1,8 +1,6 @@
 import { skeletonClass } from '@/lib/styles/tailwindClasses'
 import React from 'react'
 
-type Props = {}
-
 const barClassName = `flex-1 ${skeletonClass}`
 
 const SkeletonBars = () => (
@@ -16,7 +14,7 @@ const SkeletonBars = () => (
     </>
 )
 
-const ChartLoading = (props: Props) => {
+const ChartLoading = () => {
     return (
         <div className='flex items-end gap-4 h-full w-full p-4'>
             <SkeletonBars/>

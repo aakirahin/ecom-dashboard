@@ -1,9 +1,7 @@
 import { skeletonClass } from '@/lib/styles/tailwindClasses'
 import React from 'react'
 
-type Props = {}
-
-const PieLoading = (props: Props) => {
+const PieLoading = () => {
   return (
     <div className='h-full w-full flex flex-col items-center justify-center gap-6'>
       <div className='w-48 h-48 rounded-full border-24 border-gray-100 animate-pulse' />

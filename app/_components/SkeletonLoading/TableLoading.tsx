@@ -1,8 +1,6 @@
 import { skeletonClass } from '@/lib/styles/tailwindClasses'
 import React from 'react'
 
-type Props = {}
-
 const TableRowLoading = () => (
     <div className='flex justify-between items-center p-4'>
         <div className={`h-4 w-24 ${skeletonClass}`} />
@@ -12,7 +10,7 @@ const TableRowLoading = () => (
     </div>
 )
 
-const TableLoading = (props: Props) => {
+const TableLoading = () => {
     return (
         <div className='flex flex-col divide-y divide-gray-200 w-full h-full'>
             <TableRowLoading/>
