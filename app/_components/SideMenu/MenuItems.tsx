@@ -25,11 +25,6 @@ const menuItems: MenuItem[] = [
     link: '/widgets',
     icon: <Puzzle size={16} />
   },
-  {
-    label: 'Customise',
-    link: '/coming-soon',
-    icon: <Pencil size={16} />
-  },
 ]
 
 const MenuItems = ({ mobile = false }: Props) => {
