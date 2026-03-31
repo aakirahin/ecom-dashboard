@@ -8,7 +8,7 @@ type Props<T> = {
     children: React.ReactNode
 }
 
-export type TableStateContext<T> = {
+export type TableStateContext<T extends Record<string, any>> = {
     state: TableState<T>
 }
 
