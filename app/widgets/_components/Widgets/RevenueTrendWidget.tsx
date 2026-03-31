@@ -25,9 +25,11 @@ const RevenueTrendWidget = ({
     const [showSeries, setShowSeries] = useState<boolean>(true)
 
     const trendByTotal = buildTrend(data ?? [], 'revenue')
-    const { data: trendData, series } = revenueBy === 'total' ? 
+    const trendResult = revenueBy === 'total' ? 
         { data: trendByTotal, series: ['revenue'] } : 
         buildTrend(data ?? [], 'revenue', revenueBy)
+    const trendData = Array.isArray(trendResult) ? trendResult : trendResult.data
+    const series = Array.isArray(trendResult) ? ['revenue'] : trendResult.series
 
     const handleToggle = (newState: boolean) => {
         setShowSeries(newState)

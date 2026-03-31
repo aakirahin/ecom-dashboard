@@ -1,6 +1,6 @@
 "use client"
 
-import { Pagination, Sort, TableFilters, TableState, useTableReducer } from '@/lib/reducer/tableReducer'
+import { Pagination, Sort, TableState } from '@/lib/reducer/tableReducer'
 import React, { createContext, useContext } from 'react'
 
 type Props<T extends Record<string, any>> = {
@@ -19,8 +19,8 @@ export type TableActionsContext<T> = {
     // handleFilter: (filters: TableFilters<T>) => void
 }
 
-const TableStateContext = createContext<TableStateContext<T> | null>(null)
-const TableActionsContext = createContext<TableActionsContext<T> | null>(null)
+const TableStateContext = createContext<TableStateContext<any> | null>(null)
+const TableActionsContext = createContext<TableActionsContext<any> | null>(null)
 
 export const useTableState = () => {
     const context = useContext(TableStateContext)
