@@ -1,6 +1,6 @@
 import { NextResponse } from "next/server";
 import { staticData } from "@/lib/data/mockData";
-import { DashboardMetricSummary, DashboardResponse, RevenueTrendPoint } from "@/lib/types/dashboard";
+import { DashboardMetricSummary, DashboardResponse } from "@/lib/types/dashboard";
 import { previousEndDate, previousStartDate } from "@/lib/utils/date";
 import { Order } from "@/lib/types/orders";
 import { buildBreakdown, buildTrend } from "@/lib/utils/charts";
@@ -52,7 +52,7 @@ export const buildDashboardResponse = (currentOrders: Order[], previousOrders: O
                 returningCustomersPct: calculateChangePct(current.returningCustomersPct, previous.returningCustomersPct),
             },
         },
-        revenueTrend: buildTrend(currentOrders, "revenue") as RevenueTrendPoint[],
+        revenueTrend: buildTrend(currentOrders, "revenue"),
         categoryBreakdown: buildBreakdown(currentOrders, "product_category"),
         regionBreakdown: buildBreakdown(currentOrders, "region"),
     };

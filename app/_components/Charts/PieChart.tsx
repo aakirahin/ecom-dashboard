@@ -1,3 +1,4 @@
+import { BreakdownDatum } from "@/lib/types/dashboard";
 import { COLOURS } from "@/lib/utils/charts";
 import React from "react";
 import {
@@ -8,13 +9,8 @@ import {
     Cell,
 } from "recharts";
 
-type DataItem = {
-    name: string;
-    value: number;
-};
-
 type Props = {
-    data: DataItem[];
+    data: BreakdownDatum[];
 };
 
 const PieChart = ({ data }: Props) => {

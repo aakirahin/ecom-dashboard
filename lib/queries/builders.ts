@@ -23,36 +23,34 @@ export const buildQueryParams = ({ type, state }: Props) => {
 
     switch(type) {
         case "orders": {
+            const ordersFilters = filters as Record<string, any>
             const { 
                 startDate = start, 
                 endDate = end, 
                 region = [], 
                 product_category = [] 
-            } = filters
+            } = ordersFilters
 
             if (startDate) queryParams.set("startDate", String(startDate))
             if (endDate) queryParams.set("endDate", String(endDate))
 
-            if (region && region.length) region.forEach((region) => queryParams.append("region", region))
-            if (product_category && product_category.length) product_category.forEach((category) => queryParams.append("category", category))
+            if (region && region.length) region.forEach((region: string) => queryParams.append("region", region))
+            if (product_category && product_category.length) product_category.forEach((category: string) => queryParams.append("category", category))
             break
         }
         case "customers": {
-            const { 
-                segment = [], 
-                country = [] 
-            } = filters
+            const customersFilters = filters as Record<string, any>
+            const { segment = [], country = [] } = customersFilters
 
-            if (segment && segment.length) segment.forEach((segment) => queryParams.append("segment", segment))
-            if (country && country.length) country.forEach((country) => queryParams.append("country", country))
+            if (segment && segment.length) segment.forEach((segment: string) => queryParams.append("segment", segment))
+            if (country && country.length) country.forEach((country: string) => queryParams.append("country", country))
             break
         }
         case "products": {
-            const { 
-                category = []
-            } = filters
+            const productsFilters = filters as Record<string, any>
+            const { category = [] } = productsFilters
             
-            if (category && category.length) category.forEach((category) => queryParams.append("category", category))
+            if (category && category.length) category.forEach((category: string) => queryParams.append("category", category))
             break
         }
     }

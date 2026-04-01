@@ -1,5 +1,7 @@
 import { faker } from "@faker-js/faker";
-import { Customer, Order, Product } from "./types";
+import { Product } from "../types/products";
+import { Customer } from "../types/customers";
+import { Order } from "../types/orders";
 
 // -------------------------
 // Config

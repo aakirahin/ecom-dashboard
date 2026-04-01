@@ -20,8 +20,8 @@ export type DashboardMetricChanges = {
 }
 
 export type RevenueTrendPoint = {
-    date: string;
-    revenue: number;
+    data: Record<string, string | number>[];
+    series: string[];
 }
 
 export type BreakdownDatum = {
@@ -36,7 +36,7 @@ export type DashboardResponse = {
         previous: DashboardMetricSummary;
         changes: DashboardMetricChanges;
     };
-    revenueTrend: RevenueTrendPoint[];
+    revenueTrend: RevenueTrendPoint;
     categoryBreakdown: BreakdownDatum[];
     regionBreakdown: BreakdownDatum[];
 }

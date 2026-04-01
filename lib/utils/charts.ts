@@ -23,9 +23,14 @@ export const buildTrend = <T extends Record<string, any>>(
             return acc;
         }, {});
     
-        return Object.entries(grouped)
+        const trend = Object.entries(grouped)
             .map(([date, yValue]) => ({ date, [value]: +yValue.toFixed(2) }))
             .sort((a, b) => a.date.localeCompare(b.date));
+        
+        return {
+            data: trend,
+            series: ['revenue'],
+        };
     }
 
     const groupedByDate = data.reduce<Record<string, Record<string, number>>>((acc, d) => {

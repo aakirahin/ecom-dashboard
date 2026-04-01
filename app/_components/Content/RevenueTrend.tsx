@@ -10,7 +10,7 @@ import { DashboardResponse, RevenueTrendPoint } from '@/lib/types/dashboard'
 import { cardClass, titleClass } from '@/lib/styles/tailwindClasses'
 
 type Props = {
-  data: RevenueTrendPoint[]
+  data: RevenueTrendPoint
   dashboard: DashboardResponse | undefined
   isLoading: boolean
   dashboardError: Error | null
@@ -22,6 +22,7 @@ const RevenueTrend = ({
   isLoading,
   dashboardError
 }: Props) => {
+  const { data: trendData, series } = data
   const [showInsights, setShowInsights] = useState(false)
 
   const { insights, isFetching, error, refetch } = useFetchInsightsQuery(dashboard);
@@ -49,10 +50,10 @@ const RevenueTrend = ({
           isLoading ? 
           <ChartLoading/> :
           <div className={`${insightsVisible ? "md:w-5/8" : "w-full flex-1"} p-2 md:p-4`}>
-            <LineChart<RevenueTrendPoint>
-              data={data}
-              xAxis="date"
-              yAxis="revenue"
+            <LineChart<Record<string, string | number>>
+              data={trendData}
+              xAxis={"date"}
+              yAxis={series}
             />
           </div>
         }

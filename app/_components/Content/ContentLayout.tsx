@@ -37,7 +37,7 @@ const ContentLayout = () => {
           error={dashboardError}
         />
         <RevenueTrend 
-          data={dashboardData?.revenueTrend ?? []}
+          data={dashboardData?.revenueTrend ?? { data: [], series: [] }}
           dashboard={dashboardData}
           isLoading={isDashboardLoading}
           dashboardError={dashboardError}

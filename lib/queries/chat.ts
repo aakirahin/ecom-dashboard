@@ -28,7 +28,7 @@ Return only the 3 bullet points. No preamble, no explanation, no markdown header
 const buildInsightsPrompt = (dashboard: DashboardResponse) => {
     const topCategories = dashboard.categoryBreakdown.slice(0, 3);
     const topRegions = dashboard.regionBreakdown.slice(0, 3);
-    const recentTrend = dashboard.revenueTrend.slice(-7);
+    const recentTrend = dashboard.revenueTrend.data.slice(-7);
 
     return `${INSIGHTS_PROMPT}
 
