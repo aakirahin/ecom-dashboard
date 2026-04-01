@@ -26,7 +26,7 @@ const TableWidget = () => {
     }
 
     return (
-        <Card className='overflow-y-scroll'>
+        <Card>
             <div className='flex w-full justify-between'>
                 <span className={titleClass}>Table</span>
                 <select

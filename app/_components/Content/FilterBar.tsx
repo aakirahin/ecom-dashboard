@@ -48,7 +48,7 @@ const FilterBar = ({
   }, [isOpen])
 
   return (
-    <div className='flex justify-between items-center'>
+    <div className='flex md:flex-row flex-col gap-2 md:justify-between md:items-center justify-start'>
       <Link href="/coming-soon">
         <SmallButton
           icon={<Pencil size={12} color='#7F7F7F'/>}

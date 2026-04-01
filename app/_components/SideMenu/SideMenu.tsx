@@ -5,7 +5,7 @@ import GitHubCard from './GitHubCard';
 const SideMenu = () => {
   return (
     <>
-      <div className='flex lg:hidden w-full items-center justify-between px-4 py-3 bg-white border-b border-gray-200 fixed top-0 left-0 z-40'>
+      <div className='flex lg:hidden w-full items-center justify-between px-4 py-4 bg-white border-b border-gray-200 fixed top-0 left-0 z-40'>
         <a 
           href={'/'} 
           className='flex gap-2 hover:opacity-85 transition-opacity duration-300 items-center'
@@ -13,9 +13,12 @@ const SideMenu = () => {
           <Image
             src={'/logo.svg'}
             alt="Logo"
-            width={24}
-            height={24}
+            width={32}
+            height={32}
           />
+          <span className='text-xl text-[#626366] font-sofia font-bold tracking-widest'>
+            ENIGMA
+          </span>
         </a>
       </div>
 

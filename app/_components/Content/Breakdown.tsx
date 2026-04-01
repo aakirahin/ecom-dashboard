@@ -20,7 +20,7 @@ const Breakdown = ({
   return (
     <div className={` ${cardClass} w-full h-full`}>
       <span className={titleClass}>{title}</span>
-      {error && <p className='p-2 text-sm text-red-600'>Error loading pie chart.</p>}
+      {error && <p className='py-2 text-sm text-red-600'>Error loading pie chart.</p>}
       {
         isLoading ? 
         <PieLoading/> :

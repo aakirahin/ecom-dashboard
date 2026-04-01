@@ -19,7 +19,7 @@ const PieChart = ({ data }: Props) => {
 
     return (
         <Chart
-            style={{ width: '100%', height: '90%' }}
+            style={{ width: '100%', height: '100%' }}
             responsive
         >
             <Tooltip formatter={(value) => [value, 'Orders']} />

@@ -95,7 +95,7 @@ const KPIMetrics = ({
   const changes = dashboard?.kpis.changes ?? emptyChanges
 
   return (
-    <div className={`flex flex-col bg-white ${borderClass} divide-y divide-gray-200 rounded-lg w-auto xl:w-1/3 p-4 font-medium`}>
+    <div className={`flex flex-col bg-white ${borderClass} divide-y divide-gray-200 rounded-lg w-auto xl:w-1/3 sm:w-full p-4 font-medium`}>
       <RowCard
         left={{
           title: 'Total Revenue',

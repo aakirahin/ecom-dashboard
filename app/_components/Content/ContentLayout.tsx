@@ -25,7 +25,7 @@ const ContentLayout = () => {
   } = useFetchDashboardQuery(dashboardFilters)
 
   return (
-    <div className='flex flex-col gap-4 px-4 pt-16 lg:pt-4 pb-24 lg:pb-6 flex-1 overflow-y-auto'>
+    <div className='flex flex-col gap-4 px-4 pt-20 lg:pt-4 pb-24 lg:pb-6 flex-1 overflow-y-auto'>
       <FilterBar
         filters={dashboardFilters}
         setFilters={setDashboardFilters}

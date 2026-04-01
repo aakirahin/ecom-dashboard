@@ -37,7 +37,7 @@ const DataTable = <T extends Record<string, any>>({
 }: Props<T>) => {
   return (
     <TableContextProvider<T> reducer={reducer}>
-      <div className='flex flex-col gap-2'>
+      <div className='flex flex-col gap-2 overflow-x-clip overflow-x-scroll'>
         <div className='flex justify-between items-center mb-2'>
           <span className='text-[16px] text-[#626366] font-medium'>{title}</span>
           <Search error={error}/>
