@@ -1,4 +1,6 @@
-# Ecom Dashboard
+# E-Commerce Dashboard
+
+Deployed site: https://aesthetic-phoenix-0027ae.netlify.app/widgets 
 
 An interactive e-commerce analytics dashboard built with Next.js, React Query, and Recharts.
 
