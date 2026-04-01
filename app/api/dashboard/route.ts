@@ -6,8 +6,6 @@ import { Order } from "@/lib/types/orders";
 import { buildBreakdown, buildTrend } from "@/lib/utils/charts";
 import { filter } from "@/lib/utils/utils";
 
-export const dynamic = 'force-dynamic'
-
 // CALCULATE KPI
 const calculateMetrics = (orders: Order[]): DashboardMetricSummary => {
     const totalOrders = orders.length;

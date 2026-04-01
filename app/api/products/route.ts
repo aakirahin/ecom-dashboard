@@ -4,8 +4,6 @@ import { filter, paginate, sortData } from "@/lib/utils/utils";
 import { Product } from "@/lib/types/products";
 import { PaginatedResponse } from "@/lib/types/data";
 
-export const dynamic = 'force-dynamic'
-
 export function GET(req: Request): NextResponse<PaginatedResponse<Product>> {
     const { products } = staticData;
     const { searchParams } = new URL(req.url);
