@@ -115,7 +115,3 @@ Orders include fields such as date, revenue, product category, region, and custo
 - Persisted dashboard layout/preferences
 - Dedicated chart aggregation endpoints for heavier datasets
 - Broader test coverage for query builders and chart utilities
-
-## License
-
-Internal/demo project. Add a license if you plan to open source it.
