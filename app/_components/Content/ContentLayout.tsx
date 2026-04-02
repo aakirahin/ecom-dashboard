@@ -25,12 +25,12 @@ const ContentLayout = () => {
   } = useFetchDashboardQuery(dashboardFilters)
 
   return (
-    <div className='flex flex-col gap-4 px-4 pt-20 lg:pt-4 pb-24 lg:pb-6 flex-1 overflow-y-auto'>
+    <div className='flex flex-col gap-4 px-4 pt-20 lg:pt-4 pb-24 lg:pb-6 flex-1 overflow-y-auto xl:overflow-hidden'>
       <FilterBar
         filters={dashboardFilters}
         setFilters={setDashboardFilters}
       />
-      <div className='flex flex-col xl:flex-row gap-4'>
+      <div className='flex flex-col xl:flex-row gap-4 xl:h-1/2'>
         <KPIMetrics
           dashboard={dashboardData}
           isLoading={isDashboardLoading}
@@ -43,7 +43,7 @@ const ContentLayout = () => {
           dashboardError={dashboardError}
         />
       </div>
-      <div className='flex flex-col xl:flex-row gap-4'>
+      <div className='flex flex-col xl:flex-row gap-4 xl:h-1/2 xl:overflow-auto'>
         <OrderHistory filters={dashboardFilters}/>
         <div className='grid grid-cols-1 md:grid-cols-2 gap-4 w-full xl:w-1/2'>
           <Breakdown

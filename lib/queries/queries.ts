@@ -53,8 +53,7 @@ export const useFetchOrdersQuery = (state: TableState<Order>) => {
     const { data, isLoading, error } = useQuery<PaginatedResponse<Order>>({
         queryKey: ['orders', state],
         queryFn: () => fetchOrders(state),
-        retry: false,
-        staleTime: 1000 * 60 * 60, // 1 hour
+        staleTime: Infinity,
     })
 
     return { data, isLoading, error }
@@ -64,8 +63,7 @@ export const useFetchCustomersQuery = (state: TableState<Customer>) => {
     const { data, isLoading, error } = useQuery({
         queryKey: ['customers', state],
         queryFn: () => fetchCustomers(state),
-        retry: false,
-        staleTime: 1000 * 60 * 60, // 1 hour
+        staleTime: Infinity,
     })
 
     return { data, isLoading, error }
@@ -75,8 +73,7 @@ export const useFetchProductsQuery = (state: TableState<Product>) => {
     const { data, isLoading, error } = useQuery({
         queryKey: ['products', state],
         queryFn: () => fetchProducts(state),
-        retry: false,
-        staleTime: 1000 * 60 * 60, // 1 hour
+        staleTime: Infinity,
     })
 
     return { data, isLoading, error }
@@ -86,8 +83,7 @@ export const useFetchDashboardQuery = (params: DashboardQueryState) => {
     const { data, isLoading, error } = useQuery<DashboardResponse>({
         queryKey: ['dashboard', params],
         queryFn: () => fetchDashboard(params),
-        retry: false,
-        staleTime: 1000 * 60 * 60, // 1 hour
+        staleTime: Infinity,
     })
 
     return { data, isLoading, error }
