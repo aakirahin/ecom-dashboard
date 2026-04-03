@@ -3,9 +3,13 @@ import { Product } from "../types/products";
 import { Customer } from "../types/customers";
 import { Order } from "../types/orders";
 
+// MOCK DATA IS GENERATED AT RUNTIME; FOLLOWING CODE REGENERATES IT TO SAME VALUE SO DATA IS STABLE
+
+// FIXED FAKER SEED
 const MOCK_DATA_SEED = 12345;
 faker.seed(MOCK_DATA_SEED);
 
+// REPLACE ALL MATH.RANDOM WITH THE SAME RAND FUNCTION
 const rand = () => faker.number.float({ min: 0, max: 1, fractionDigits: 8 });
 
 // -------------------------

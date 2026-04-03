@@ -32,7 +32,7 @@ const getPaginationItems = (pageNumbers: number[]): PaginationItem[] => {
         }
 
         const previousPage = pageNumbers[index - 1]
-        if (n - previousPage > 1) items.push({ type: "ellipsis" })
+        if ((n - previousPage) > 1) items.push({ type: "ellipsis" }) // Any number that is not +/- 1 of the number in the set should be ...
 
         items.push({ type: "page", value: n })
     })
