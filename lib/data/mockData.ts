@@ -3,6 +3,11 @@ import { Product } from "../types/products";
 import { Customer } from "../types/customers";
 import { Order } from "../types/orders";
 
+const MOCK_DATA_SEED = 12345;
+faker.seed(MOCK_DATA_SEED);
+
+const rand = () => faker.number.float({ min: 0, max: 1, fractionDigits: 8 });
+
 // -------------------------
 // Config
 // -------------------------
@@ -64,7 +69,7 @@ const weightedRandom = <T extends string>(
 ): T  => {
     const entries = Object.entries(weights) as [T, number][];
     const total = entries.reduce((sum, [, w]) => sum + w, 0);
-    let r = Math.random() * total;
+    let r = rand() * total;
 
     for (const [key, weight] of entries) {
         if (r < weight) return key;
@@ -98,7 +103,7 @@ export const generateProducts = (): {
             price
         });
 
-        popularity.push(Math.random() ** 2);
+        popularity.push(rand() ** 2);
     }
 
     const total = popularity.reduce((a, b) => a + b, 0);
@@ -119,7 +124,7 @@ export const generateCustomers = (): Customer[] => {
         const segment = weightedRandom(SEGMENT_WEIGHTS);
 
         const signup_date =
-        Math.random() < 0.6
+        rand() < 0.6
             ? faker.date.recent({ days: 365 })
             : faker.date.past({ years: 5 });
 
@@ -153,7 +158,7 @@ export const generateOrders = (
         ) as string;
 
         // Product selection based on popularity
-        const r = Math.random();
+        const r = rand();
         let sum = 0;
         let productIndex = 0;
 
@@ -174,7 +179,7 @@ export const generateOrders = (
         else if (segment === "returning") quantity = faker.helpers.arrayElement([1, 2, 3]);
 
         // Add noise to price
-        const effectivePrice = +(price * (0.9 + Math.random() * 0.2)).toFixed(2);
+        const effectivePrice = +(price * (0.9 + rand() * 0.2)).toFixed(2);
         const revenue = +(effectivePrice * quantity).toFixed(2);
 
         // Order date after signup
