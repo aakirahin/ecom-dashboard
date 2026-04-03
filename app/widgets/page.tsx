@@ -34,7 +34,7 @@ const Page = () => {
     });
 
     return (
-        <div className={`gap-4 md:p-6 sm:p-2 flex flex-col flex-1 px-4 pt-20 xl:pt-4 pb-24 xl:pb-6 min-w-0 overflow-x-hidden`}>
+        <div className={`gap-4 md:p-6 sm:p-2 flex flex-col flex-1 px-4 pt-20 xl:pt-4 pb-24 xl:pb-6 min-w-0 xl:overflow-hidden`}>
             <div className='gap-2'>
                 <h1 className='text-2xl text-[#626366] font-medium'>
                     Available Widgets
@@ -64,7 +64,7 @@ const Page = () => {
                     showOptions={true}
                 />
             </div>
-            <div className='xl:h-1/2 flex xl:flex-row flex-col gap-4 flex-1'>
+            <div className='xl:h-1/2 flex xl:flex-row flex-col gap-4 flex-1 xl:overflow-auto'>
                 <TableWidget/>
                 <Card>
                     <span className={titleClass}>KPI Metrics</span>
