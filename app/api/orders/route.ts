@@ -19,7 +19,7 @@ export function GET(req: Request): NextResponse<PaginatedResponse<Order>> {
     const regions = searchParams.getAll("region");
     const categories = searchParams.getAll("category");
 
-    let filtered = filter("orders", orders, { search, startDate, endDate, regions, categories });
+    const filtered = filter("orders", orders, { search, startDate, endDate, regions, categories });
     const sorted = sortData(
         filtered, 
         sort as keyof Order | null, 

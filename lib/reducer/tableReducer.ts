@@ -48,7 +48,8 @@ const tableReducer = <T extends Record<string, any>>(state: TableState<T>, actio
             return { 
                 ...state, 
                 search: action.payload, 
-                pagination: { ...state.pagination, page: 1 } 
+                pagination: { ...state.pagination, page: 1 },
+                sort: { sortKey: "", sortOrder: "" }
             }
         case ACTION.SORT: 
             return { 

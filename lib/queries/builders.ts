@@ -1,16 +1,14 @@
 import { TableState } from "../reducer/tableReducer"
-import { Customer } from "../types/customers"
 import { DashboardQueryState } from "../types/dashboard"
-import { Order } from "../types/orders"
-import { Product } from "../types/products"
+import { EntityMap, EntityType } from "../types/data";
 import { startDate as start, endDate as end } from "../utils/date"
 
-type Props = 
-    { type: "orders", state: TableState<Order> } | 
-    { type: "customers", state: TableState<Customer> } | 
-    { type: "products", state: TableState<Product> }
+type Props<T extends EntityType> = {
+  type: T;
+  state: TableState<EntityMap[T]>;
+};
 
-export const buildQueryParams = ({ type, state }: Props) => {
+export const buildQueryParams = <T extends EntityType>({ type, state }: Props<T>) => {
     const { search, sort, pagination, filters = {} } = state
     const queryParams = new URLSearchParams()
 

@@ -1,7 +1,7 @@
 "use client"
 
 import React, { useEffect, useMemo, useRef, useState } from 'react'
-import { Download, ListFilter, Pencil, Puzzle } from 'lucide-react'
+import { Download, ListFilter, Pencil } from 'lucide-react'
 import SmallButton from './SmallButton'
 import Link from 'next/link'
 import DateFilter from './DateFilter'
@@ -36,7 +36,7 @@ const FilterBar = ({
     ...initOrdersState(startDate, endDate),
     filters
   }), [filters])
-  const handleExport = useHandleExport(exportQueryState)
+  const handleExport = useHandleExport<"orders">({ type: "orders", exportQueryState })
 
   useEffect(() => {
     const handleClickOutside = (e: MouseEvent) => {

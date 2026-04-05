@@ -15,7 +15,7 @@ export function GET(req: Request): NextResponse<PaginatedResponse<Product>> {
     } = Object.fromEntries(searchParams.entries());
     const categories = searchParams.getAll("category");
 
-    let filtered = filter("products", products, { categories });
+    const filtered = filter("products", products, { categories });
     const sorted = sortData(
         filtered, 
         sort as keyof Product | null, 

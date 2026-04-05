@@ -17,7 +17,7 @@ export function GET(req: Request): NextResponse<PaginatedResponse<Customer>> {
     const segments = searchParams.getAll("segment");
     const countries = searchParams.getAll("country");
 
-    let filtered = filter("customers", customers, { search, segments, countries });
+    const filtered = filter("customers", customers, { search, segments, countries });
     const sorted = sortData(
         filtered, 
         sort as keyof Customer | null, 

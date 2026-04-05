@@ -12,8 +12,8 @@ const TableBody = <T extends Record<string, any>>({
 }: Props<T>) => {
     return (
         <tbody className='divide-y divide-gray-200'>
-            {data?.map((row, i) => (
-                <tr key={`row_${i}`} className='flex px-2 py-4'>
+            {data?.map((row) => (
+                <tr key={Object.values(row)[0]} className='flex px-2 py-4'>
                     {
                         columns.map((col) => {
                             const value = row[col.key];

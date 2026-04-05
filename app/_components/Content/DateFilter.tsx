@@ -2,7 +2,6 @@
 
 import React, { useState } from 'react'
 import { focusRingClass, shadowClass } from '@/lib/styles/tailwindClasses';
-import { endDate, startDate } from '@/lib/utils/date'
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import { DashboardQueryState } from '@/lib/types/dashboard';
@@ -21,6 +20,7 @@ const DateFilter = ({
     filters,
     setFilters
 }: Props) => {
+    const { startDate, endDate } = filters
     const [dateRange, setDateRange] = useState<DateRange>({
         startDate: new Date(startDate),
         endDate: new Date(endDate)

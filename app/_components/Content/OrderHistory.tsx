@@ -1,3 +1,5 @@
+"use client"
+
 import React from 'react'
 import { DashboardQueryState } from '@/lib/types/dashboard'
 import { borderClass } from '@/lib/styles/tailwindClasses'
