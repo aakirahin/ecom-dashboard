@@ -34,7 +34,7 @@ const Page = () => {
     });
 
     return (
-        <div className={`gap-4 md:p-6 sm:p-2 flex flex-col flex-1 px-4 pt-20 xl:pt-4 pb-24 xl:pb-6 min-w-0 xl:overflow-hidden`}>
+        <div className={`gap-4 md:p-6 sm:p-2 flex flex-col flex-1 px-4 pt-20 xl:pt-4 pb-24 xl:pb-6 min-w-0 overflow-y-auto xl:overflow-hidden`}>
             <div className='gap-2'>
                 <h1 className='text-2xl text-[#626366] font-medium'>
                     Available Widgets
