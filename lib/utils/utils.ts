@@ -1,5 +1,10 @@
 import { EntityType } from "../types/data";
 
+export const isNumber = (value: any) => {
+    const int = parseInt(value)
+    return isNaN(int)
+}
+
 export const paginate = <T>(
     items: T[], 
     page: number, 
@@ -33,9 +38,9 @@ export const sortData = <T extends Record<string, any>>(
     if (!sortKey) return items
 
     if (
-        !Array.isArray(items) ||
-        order !== "asc" && order !== "desc" ||
-        items.length > 0 && sortKey && !(sortKey in items[0])
+        (!Array.isArray(items)) ||
+        (order !== "asc" && order !== "desc") ||
+        (items.length > 0 && sortKey && !(sortKey in items[0]))
     ) {
         throw new Error("Check sorting again.");
     }

@@ -15,6 +15,7 @@ type Props<T extends Record<string, any>> = {
   total: number
   totalPages: number
   reducer: TableStateContext<T> & TableActionsContext<T>
+  rowKey: keyof T
 }
 
 export type Column<T> = {
@@ -33,7 +34,8 @@ const DataTable = <T extends Record<string, any>>({
   rows,
   total,
   totalPages,
-  reducer
+  reducer,
+  rowKey
 }: Props<T>) => {
   return (
     <TableContextProvider<T> reducer={reducer}>
@@ -51,7 +53,7 @@ const DataTable = <T extends Record<string, any>>({
               <>
                 <table className='divide-y divide-gray-200 w-full'>
                   <TableHeader<T> columns={columns}/>
-                  <TableBody<T> data={rows} columns={columns}/>
+                  <TableBody<T> rowKey={rowKey} data={rows} columns={columns}/>
                 </table>
                 <Pagination totalItems={total} totalPages={totalPages}/>
               </>

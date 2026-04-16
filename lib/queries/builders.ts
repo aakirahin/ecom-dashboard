@@ -1,7 +1,7 @@
 import { TableState } from "../reducer/tableReducer"
 import { DashboardQueryState } from "../types/dashboard"
 import { EntityMap, EntityType } from "../types/data";
-import { startDate as start, endDate as end } from "../utils/date"
+import { getEndDate, getStartDate } from "../utils/date";
 
 type Props<T extends EntityType> = {
   type: T;
@@ -23,8 +23,8 @@ export const buildQueryParams = <T extends EntityType>({ type, state }: Props<T>
         case "orders": {
             const ordersFilters = filters as Record<string, any>
             const { 
-                startDate = start, 
-                endDate = end, 
+                startDate = getStartDate(), 
+                endDate = getEndDate(), 
                 region = [], 
                 product_category = [] 
             } = ordersFilters

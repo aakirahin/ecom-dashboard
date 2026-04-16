@@ -29,6 +29,7 @@ const ProductsTable = ({ filters }: Props) => {
     return (
         <DataTable<Product> 
             title="Products" 
+            rowKey="product_id"
             {...{ 
                 columns: productColumns, 
                 error, 

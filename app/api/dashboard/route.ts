@@ -1,10 +1,10 @@
 import { NextResponse } from "next/server";
 import { staticData } from "@/lib/data/mockData";
 import { DashboardMetricSummary, DashboardResponse } from "@/lib/types/dashboard";
-import { previousEndDate, previousStartDate } from "@/lib/utils/date";
 import { Order } from "@/lib/types/orders";
 import { buildBreakdown, buildTrend } from "@/lib/utils/charts";
 import { filter } from "@/lib/utils/utils";
+import { formatDate } from "@/lib/utils/date";
 
 // CALCULATE KPI
 const calculateMetrics = (orders: Order[]): DashboardMetricSummary => {
@@ -68,10 +68,16 @@ export function GET(req: Request): NextResponse<DashboardResponse> {
     const regions = searchParams.getAll("region");
     const categories = searchParams.getAll("category");
 
+    const previousEnd = new Date(startDate)
+    previousEnd.setDate(previousEnd.getDate() - 1)
+
+    const previousStart = new Date(previousEnd)
+    previousStart.setMonth(previousStart.getMonth() - 1)
+
     const currentOrders = filter("orders", orders, { startDate, endDate, regions, categories });
     const previousOrders = filter("orders", orders, {
-        startDate: previousStartDate,
-        endDate: previousEndDate,
+        startDate: formatDate(previousStart),
+        endDate: formatDate(previousEnd),
         regions,
         categories,
     });

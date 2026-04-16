@@ -49,6 +49,8 @@ const fetchDashboard = async (params: DashboardQueryState): Promise<DashboardRes
 
 // QUERIES
 
+// Stale time is infinity as mock data is being used - it will never change
+
 export const useFetchOrdersQuery = (state: TableState<Order>) => {
     const { data, isLoading, error } = useQuery<PaginatedResponse<Order>>({
         queryKey: ['orders', state],

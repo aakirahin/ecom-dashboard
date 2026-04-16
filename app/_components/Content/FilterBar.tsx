@@ -7,10 +7,10 @@ import Link from 'next/link'
 import DateFilter from './DateFilter'
 import FilterDropdown from './FilterDropdown'
 import { useHandleExport } from '@/lib/utils/exportCSV'
-import { endDate, startDate } from '@/lib/utils/date'
 import { DashboardQueryState } from '@/lib/types/dashboard'
 import { TableState } from '@/lib/reducer/tableReducer'
 import { Order } from '@/lib/types/orders'
+import { getEndDate, getStartDate } from '@/lib/utils/date'
 
 type Props = {
   filters: DashboardQueryState
@@ -21,7 +21,7 @@ type Props = {
 const initOrdersState = (startDate: string, endDate: string): TableState<Order> => ({
     search: "",
     sort: { sortKey: "date", sortOrder: "desc" },
-    pagination: { page: 1, perPage: 20000 },
+    pagination: { page: 1, perPage: Infinity },
     filters: { startDate, endDate }
 })
 
@@ -33,7 +33,7 @@ const FilterBar = ({
   const dropdownRef = useRef<HTMLDivElement>(null)
 
   const exportQueryState = useMemo(() => ({
-    ...initOrdersState(startDate, endDate),
+    ...initOrdersState(getStartDate(), getEndDate()),
     filters
   }), [filters])
   const handleExport = useHandleExport<"orders">({ type: "orders", exportQueryState })

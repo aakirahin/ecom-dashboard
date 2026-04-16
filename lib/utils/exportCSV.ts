@@ -4,7 +4,6 @@ import { useCallback } from "react";
 import { TableState } from "../reducer/tableReducer";
 import { buildQueryParams } from "../queries/builders";
 import { EntityMap, EntityType } from "../types/data";
-import { orderColumns } from "./columns";
 
 const convertToCSV = <T>(data: T[]) => {
     let str = '';
@@ -13,7 +12,8 @@ const convertToCSV = <T>(data: T[]) => {
         let line = '';
         for (let index in data[i]) {
             if (line !== '') line += ',';
-            line += data[i][index];
+            // Wrap every cell in quotes and escape internal quotes
+            line += `"${String(data[i][index]).replace(/"/g, '""')}"`;
         }
         str += line + '\r\n';
     }
@@ -23,7 +23,7 @@ const convertToCSV = <T>(data: T[]) => {
 
 const exportCSV = <T extends Record<string, any>>(data: T[], fileName: string) => {
     const csvString = [
-        orderColumns.map((col) => (col.key)).toString(),
+        Object.keys(data[0]).map((key) => `"${key}"`).join(","),,
         convertToCSV(data)
     ]
     .join("\n")
@@ -36,6 +36,7 @@ const exportCSV = <T extends Record<string, any>>(data: T[], fileName: string) =
     document.body.appendChild(link);
     link.click();
     document.body.removeChild(link);
+    URL.revokeObjectURL(csvURL) // Prevent memory leak
 };
 
 type ExportProps<T extends EntityType> = {
@@ -45,11 +46,16 @@ type ExportProps<T extends EntityType> = {
 
 export const useHandleExport = <T extends EntityType>({ type, exportQueryState }: ExportProps<T>) => {
     const handleExport = useCallback(async () => {
-        const response = await fetch(`/api/${type}?${buildQueryParams<T>({ type, state: exportQueryState }).toString()}`)
-        if (!response.ok) throw new Error('Failed to export.')
-        
-        const payload = await response.json() as { data: EntityMap[T][] }
-        exportCSV(payload.data, `${type}_${new Date().toISOString()}`)
+        try {
+            const response = await fetch(`/api/${type}?${buildQueryParams<T>({ type, state: exportQueryState }).toString()}`)
+            
+            if (!response.ok) throw new Error('Failed to export.')
+            
+                const payload = await response.json() as { data: EntityMap[T][] }
+            exportCSV(payload.data, `${type}_${new Date().toISOString()}`)
+        } catch {
+            alert('Export failed. Please try again.')
+        }
     }, [type, exportQueryState])
 
     return handleExport

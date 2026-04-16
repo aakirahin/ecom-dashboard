@@ -1,14 +1,8 @@
 import { NextResponse } from "next/server";
 
 type OpenRouterResponse = {
-	choices?: Array<{
-		message?: {
-			content?: string;
-		};
-	}>;
-	error?: {
-		message?: string;
-	};
+	choices?: { message?: { content?: string; } }[];
+	error?: { message?: string };
 };
 
 export async function POST(req: Request) {
@@ -20,8 +14,16 @@ export async function POST(req: Request) {
 			{ status: 500 }
 		);
 	}
+	
+	let body;
 
-	const { question } = await req.json();
+	try {
+		body = await req.json();
+	} catch {
+		return NextResponse.json({ error: "Invalid JSON." }, { status: 400 });
+	}
+
+	const { question } = body;
 
 	if (!question || typeof question !== "string") {
 		return NextResponse.json(
@@ -46,6 +48,7 @@ export async function POST(req: Request) {
 			],
 			reasoning: { enabled: true },
 		}),
+		signal: AbortSignal.timeout(60_000), // Abort after 1 minute
 	});
 
 	const data = (await response.json()) as OpenRouterResponse;

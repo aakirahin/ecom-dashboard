@@ -4,16 +4,18 @@ import { Column } from './DataTable';
 type Props<T> = {
     data: T[];
     columns: Column<T>[];
+    rowKey: keyof T;
 }
 
 const TableBody = <T extends Record<string, any>>({
     data,
-    columns
+    columns,
+    rowKey
 }: Props<T>) => {
     return (
         <tbody className='divide-y divide-gray-200'>
             {data?.map((row) => (
-                <tr key={Object.values(row)[0]} className='flex px-2 py-4'>
+                <tr key={row[rowKey]} className='flex px-2 py-4'>
                     {
                         columns.map((col) => {
                             const value = row[col.key];

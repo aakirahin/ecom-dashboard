@@ -31,6 +31,7 @@ const OrdersTable = ({ filters }: Props) => {
   return (
     <DataTable<Order> 
       title="Order History" 
+      rowKey="order_id"
       {...{ 
         columns: orderColumns, 
         error, 

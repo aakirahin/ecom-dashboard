@@ -1,7 +1,7 @@
 "use client"
 
 import { useCallback, useReducer } from "react"
-import { endDate, startDate } from "../utils/date"
+import { getEndDate, getStartDate } from "../utils/date"
 
 type FilterKey<T> = Exclude<Extract<keyof T, string>, "startDate" | "endDate">
 
@@ -86,8 +86,8 @@ const createInitialTableState = <T extends Record<string, unknown>>(): TableStat
         perPage: 5
     },
     filters: {
-        startDate,
-        endDate,
+        startDate: getStartDate(),
+        endDate: getEndDate(),
     } as TableFilters<T>
 })
 

@@ -5,15 +5,15 @@ import KPIMetrics from './KPIMetrics'
 import RevenueTrend from './RevenueTrend'
 import Breakdown from './Breakdown'
 import FilterBar from './FilterBar'
-import { startDate, endDate } from '@/lib/utils/date'
 import { useFetchDashboardQuery } from '@/lib/queries/queries'
 import { DashboardQueryState } from '@/lib/types/dashboard'
 import OrderHistory from './OrderHistory'
+import { getEndDate, getStartDate } from '@/lib/utils/date'
 
 const ContentLayout = () => {
   const [dashboardFilters, setDashboardFilters] = useState<DashboardQueryState>({ 
-    startDate,
-    endDate,
+    startDate: getStartDate(),
+    endDate: getEndDate(),
     product_category: [], 
     region: [] 
   })

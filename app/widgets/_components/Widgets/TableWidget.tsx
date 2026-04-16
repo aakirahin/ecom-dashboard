@@ -1,16 +1,16 @@
 import React, { useMemo, useState } from 'react'
 import Card from '../Card'
-import { endDate, startDate } from '@/lib/utils/date'
 import { TableFilters } from '@/lib/reducer/tableReducer'
 import { selectClass, titleClass } from '@/lib/styles/tailwindClasses'
 import OrdersTable from '@/app/_components/Table/_types/OrdersTable'
 import CustomersTable from '@/app/_components/Table/_types/CustomersTable'
 import ProductsTable from '@/app/_components/Table/_types/ProductsTable'
+import { getEndDate, getStartDate } from '@/lib/utils/date'
 
 const TableWidget = () => {
     const [filters] = useState<TableFilters>({
-        startDate,
-        endDate,
+        startDate: getStartDate(),
+        endDate: getEndDate(),
     })
     const [data, setData] = useState<"orders" | "products" | "customers">("orders")
 

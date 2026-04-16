@@ -1,10 +1,10 @@
 import { NextResponse } from "next/server";
 import { staticData } from "@/lib/data/mockData";
-import { filter, paginate, sortData } from "@/lib/utils/utils";
+import { isNumber, filter, paginate, sortData } from "@/lib/utils/utils";
 import { Customer } from "@/lib/types/customers";
 import { PaginatedResponse } from "@/lib/types/data";
 
-export function GET(req: Request): NextResponse<PaginatedResponse<Customer>> {
+export function GET(req: Request): NextResponse<PaginatedResponse<Customer> | { error: string }> {
     const { customers } = staticData;
     const { searchParams } = new URL(req.url);
     const {
@@ -16,6 +16,8 @@ export function GET(req: Request): NextResponse<PaginatedResponse<Customer>> {
     } = Object.fromEntries(searchParams.entries());    
     const segments = searchParams.getAll("segment");
     const countries = searchParams.getAll("country");
+
+    if (!isNumber(page) || !isNumber(pageSize)) return NextResponse.json({ error: 'Check pagination is numerical.' }, { status: 400 })
 
     const filtered = filter("customers", customers, { search, segments, countries });
     const sorted = sortData(
