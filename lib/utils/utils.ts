@@ -2,7 +2,7 @@ import { EntityType } from "../types/data";
 
 export const isNumber = (value: any) => {
     const int = parseInt(value)
-    return isNaN(int)
+    return !isNaN(int)
 }
 
 export const paginate = <T>(
