@@ -9,8 +9,8 @@ The app visualizes mock commerce data (orders, products, customers) and includes
 - KPI summaries and period-over-period comparisons
 - Revenue trend and breakdown charts
 - Search, sort, and pagination for order history
-- Optional chat endpoint for generated insights
-- Configurable widget-based dashboard experiments (COMING SOON)
+- Optional AI chat endpoint for generated insights
+- Configurable widget-based dashboard (COMING SOON)
 
 ## Tech Stack
 
@@ -39,58 +39,6 @@ The app visualizes mock commerce data (orders, products, customers) and includes
 - Date and category/region filtering
 - API routes for orders, products, customers, and dashboard aggregates
 - Mock data generation at startup
-
-## API Endpoints
-
-- `GET /api/orders`
-	- Search, sort, filter, paginate orders
-- `GET /api/customers`
-	- Search, sort, filter, paginate customers
-- `GET /api/products`
-	- Filter, sort, paginate products
-- `GET /api/dashboard`
-	- Returns aggregated dashboard payload (KPIs + chart data)
-- `POST /api/chat`
-	- Proxy endpoint for chat responses via OpenRouter
-
-## Environment Variables
-
-Create a `.env.local` file in the project root:
-
-```bash
-API_KEY=your_openrouter_api_key
-```
-
-`API_KEY` is required only for `POST /api/chat`.
-
-## Getting Started
-
-1. Install dependencies:
-
-```bash
-npm install
-```
-
-2. Add environment variables (optional if you are not using chat).
-
-3. Start development server:
-
-```bash
-npm run dev
-```
-
-4. Open:
-
-```text
-http://localhost:3000
-```
-
-## Available Scripts
-
-- `npm run dev` - start development server
-- `npm run build` - build for production
-- `npm run start` - run production build
-- `npm run lint` - run ESLint
 
 ## Data Model Snapshot
 
