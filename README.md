@@ -1,117 +1,90 @@
 # E-Commerce Dashboard
 
-Deployed site: https://aesthetic-phoenix-0027ae.netlify.app/widgets 
+**[Live Demo](https://aesthetic-phoenix-0027ae.netlify.app/widgets)**
 
-An interactive e-commerce analytics dashboard built with Next.js, React Query, and Recharts.
+An interactive analytics dashboard for e-commerce data, built with Next.js App Router, React Query, and Recharts. The project focuses on scalable data architecture: a seeded mock data generator producing 15,000+ consistent records, a custom aggregation engine with period-over-period KPI comparison, and a fully generic, type-safe table system.
 
-The app visualizes mock commerce data (orders, products, customers) and includes:
+## Technical Highlights
 
-- KPI summaries and period-over-period comparisons
-- Revenue trend and breakdown charts
-- Search, sort, and pagination for order history
-- Optional chat endpoint for generated insights
-- Configurable widget-based dashboard experiments (COMING SOON)
+**Deterministic data generation** — All mock data is generated at startup using `faker.seed(12345)`, producing the same 12,000 orders, 3,000 customers, and 60 products on every run. This makes demos and development consistent without a database. Product popularity follows a **Zipfian distribution** (`popularity = rand()^2`) to model real-world sales patterns where a small number of products dominate volume. Order dates are always generated after the customer's signup date to maintain temporal coherence.
+
+**Aggregation engine with period-over-period comparison** — The `/api/dashboard` route computes KPIs (total revenue, average order value, returning customer rate) and automatically derives the equivalent prior period for % change comparison. Generic utility functions (`buildTrend`, `buildBreakdown`, `sumSeries`) are typed with `keyof T` constraints so they work across any entity type.
+
+**Type-safe generic table system** — `DataTable<T>` is a fully generic orchestrator that takes typed columns, a reducer-based state handler, and row data. All table concerns (search, sort, pagination) are managed through a `useReducer` + split context pattern (`TableStateContext` / `TableActionsContext`) to prevent unnecessary re-renders. Pagination renders smart ellipsis ranges using a `Set`-based deduplication approach.
+
+**React Query with correct cache keying** — All query hooks include the full filter/sort/pagination state in their query keys, so any state change automatically triggers a re-fetch. `staleTime: Infinity` prevents redundant network calls against stable mock data.
+
+**AI insights integration** — An optional `POST /api/chat` route constructs a structured prompt from live dashboard state (top categories, top regions, 7-day trend, all KPIs) and proxies it to OpenRouter. The React Query hook is `enabled: false` by default and only fires when explicitly triggered.
+
+## Architecture
+
+```
+app/
+  page.tsx              # Dashboard page — KPIs, trend chart, breakdown charts, order table
+  widgets/              # Composable widget experiments
+  _components/
+    Charts/             # LineChart, PieChart, BarChart (Recharts wrappers)
+    Table/              # Generic DataTable, Search, Pagination, TableHeader, TableBody
+    Content/            # KPI cards, chart sections
+    SkeletonLoading/    # Loading state UI
+  _context/
+    TableContextProvider  # Split state/actions context with useReducer
+  api/
+    dashboard/          # Aggregation endpoint (KPIs + chart data + period comparison)
+    orders/             # Paginated, sortable, filterable order list
+    customers/          # Customer list with segment filtering
+    products/           # Product list with category filtering
+    chat/               # OpenRouter proxy for AI insights
+lib/
+  data/mockData.ts      # Seeded deterministic data generation (Faker)
+  queries/              # React Query hooks + query param builders
+  reducer/              # Table state reducer
+  types/                # Shared TypeScript types
+  utils/                # buildTrend, buildBreakdown, sumSeries aggregation utilities
+```
 
 ## Tech Stack
 
-- Next.js (App Router)
-- React + TypeScript
-- Tailwind CSS
-- TanStack React Query
-- Recharts
-- Faker (mock data generation)
-
-## Project Goals
-
-- Provide a realistic analytics UI for e-commerce reporting
-- Keep data logic and chart utilities reusable
-- Experiment with customizable dashboard widgets
-- Practice scalable frontend architecture patterns
-
-## Features
-
-- Dashboard page with:
-	- KPI cards
-	- Revenue line trend
-	- Category/region pie breakdowns
-	- Order history table
-- Widgets page for modular chart/table widgets
-- Date and category/region filtering
-- API routes for orders, products, customers, and dashboard aggregates
-- Mock data generation at startup
-
-## API Endpoints
-
-- `GET /api/orders`
-	- Search, sort, filter, paginate orders
-- `GET /api/customers`
-	- Search, sort, filter, paginate customers
-- `GET /api/products`
-	- Filter, sort, paginate products
-- `GET /api/dashboard`
-	- Returns aggregated dashboard payload (KPIs + chart data)
-- `POST /api/chat`
-	- Proxy endpoint for chat responses via OpenRouter
-
-## Environment Variables
-
-Create a `.env.local` file in the project root:
-
-```bash
-API_KEY=your_openrouter_api_key
-```
-
-`API_KEY` is required only for `POST /api/chat`.
+- **Next.js 15** (App Router) + TypeScript
+- **TanStack React Query** — server state, caching, request deduplication
+- **Recharts** — chart rendering
+- **Tailwind CSS** — styling
+- **Faker.js** — seeded mock data generation
+- **OpenRouter API** — optional AI insights
 
 ## Getting Started
 
-1. Install dependencies:
-
 ```bash
 npm install
-```
-
-2. Add environment variables (optional if you are not using chat).
-
-3. Start development server:
-
-```bash
 npm run dev
+# → http://localhost:3000
 ```
 
-4. Open:
+For AI insights, create `.env.local`:
 
-```text
-http://localhost:3000
+```env
+API_KEY=your_openrouter_api_key
 ```
+
+## API Reference
+
+| Endpoint | Method | Description |
+|---|---|---|
+| `/api/dashboard` | GET | KPIs + chart data + period-over-period comparison |
+| `/api/orders` | GET | Paginated orders with search, sort, date/region/category filters |
+| `/api/customers` | GET | Paginated customers with segment/country filters |
+| `/api/products` | GET | Paginated products with category filter |
+| `/api/chat` | POST | OpenRouter proxy for AI-generated dashboard insights |
+
+All list endpoints return `{ page, pageSize, total, totalPages, data }`.
 
 ## Available Scripts
 
-- `npm run dev` - start development server
-- `npm run build` - build for production
-- `npm run start` - run production build
-- `npm run lint` - run ESLint
+```bash
+npm run dev      # Start dev server
+npm run build    # Build for production
+npm run start    # Run production build
+npm run lint     # Run ESLint
+```
 
-## Data Model Snapshot
 
-Generated mock dataset includes:
-
-- ~12,000 orders
-- ~3,000 customers
-- ~60 products
-
-Orders include fields such as date, revenue, product category, region, and customer id.
-
-## Architecture Notes
-
-- React Query handles server-state fetching and caching
-- UI state (search/sort/pagination/filter controls) is managed in reducer/context patterns
-- Shared utility functions build chart-friendly data from raw entities
-- Widget components are intended to be composable and extensible
-
-## Roadmap Ideas
-
-- Drag-and-drop widget layout customization
-- Persisted dashboard layout/preferences
-- Dedicated chart aggregation endpoints for heavier datasets
-- Broader test coverage for query builders and chart utilities
