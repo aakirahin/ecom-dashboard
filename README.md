@@ -6,7 +6,7 @@ An interactive analytics dashboard for e-commerce data, built with Next.js App R
 
 ## Technical Highlights
 
-**Deterministic data generation** — All mock data is generated at startup using `faker.seed(12345)`, producing the same 12,000 orders, 3,000 customers, and 60 products on every run. This makes demos and development consistent without a database. Product popularity follows a **Zipfian distribution** (`popularity = rand()^2`) to model real-world sales patterns where a small number of products dominate volume. Order dates are always generated after the customer's signup date to maintain temporal coherence.
+**Deterministic data generation** — All mock data is generated at startup using `faker.seed(12345)`, producing the same 12,000 orders, 3,000 customers, and 60 products on every run. This makes demos and development consistent without a database. Product popularity models real-world sales patterns where a small number of products dominate volume. Order dates are always generated after the customer's signup date to maintain temporal coherence.
 
 **Aggregation engine with period-over-period comparison** — The `/api/dashboard` route computes KPIs (total revenue, average order value, returning customer rate) and automatically derives the equivalent prior period for % change comparison. Generic utility functions (`buildTrend`, `buildBreakdown`, `sumSeries`) are typed with `keyof T` constraints so they work across any entity type.
 
